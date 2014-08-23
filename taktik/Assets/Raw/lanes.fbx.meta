@@ -4,10 +4,24 @@ ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
+    100002: fliessband1
+    100004: fliessband2
+    100006: lanes
     400000: //RootNode
+    400002: fliessband1
+    400004: fliessband2
+    400006: lanes
     2300000: //RootNode
+    2300002: fliessband1
+    2300004: fliessband2
+    2300006: lanes
     3300000: //RootNode
+    3300002: fliessband1
+    3300004: fliessband2
+    3300006: lanes
     4300000: lanes
+    4300002: fliessband1
+    4300004: fliessband2
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -25,7 +39,41 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: fliessband1
+        weight: 1
+      - path: fliessband2
+        weight: 1
+      - path: lanes
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
