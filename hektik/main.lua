@@ -3,7 +3,7 @@ json = require('json')
 Server = {}
 
 function StartClient()
-	Server.host, Server.port = "192.168.2.39", 25000
+	Server.host, Server.port = "192.168.2.123", 25000
 	Server.socket = require("socket")
 	Server.tcp = assert(Server.socket.tcp())
 	Server.tcp:connect(Server.host, Server.port)
@@ -44,11 +44,15 @@ candy_yellow = love.graphics.newImage("candy_yellow.png")
 background = love.graphics.newImage("background_800.png")
 character_top = love.graphics.newImage("character_top.png")
 character_bottom = love.graphics.newImage("character_bottom.png")
+running_sushi = love.graphics.newImage("running_sushi.png")
+running_sushi:setWrap("repeat", "repeat")
+running_sushi_quad = love.graphics.newQuad(0, 0, 800, 60, 63, 60)
 
 function love.load()
 	tubeCapClose1 = false
 	tubeCapClose2 = false
 	tubeCapClose3 = false
+	running_sushi_x = 0
 
 	love.physics.setMeter(64)
 	world = love.physics.newWorld(0, 0, true)
@@ -61,6 +65,7 @@ function love.load()
 	player.body:setFixedRotation(true)
 	player.isPush = false
 	player.fixture:setUserData("Player")
+	player.fixture:setRestitution(0.5)
 
 	-- Border
 	border = {}
@@ -171,6 +176,7 @@ end
 
 function love.update(dt)
 	world:update(dt)
+	running_sushi_x = running_sushi_x + dt
 	--UpdateClient()
 
 	if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
@@ -251,9 +257,11 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.draw(background)
-
 	love.graphics.setColor(255, 255, 255)
+	love.graphics.draw(background)
+	running_sushi_quad:setViewport(-running_sushi_x * 200, 0, 800, 60)
+	love.graphics.draw(running_sushi, running_sushi_quad, 0, 467)
+
 	-- Tube 1
 	love.graphics.polygon("fill", tubeBorder1.body:getWorldPoints(tubeBorder1.shape:getPoints()))
 	love.graphics.polygon("fill", tubeBorder2.body:getWorldPoints(tubeBorder2.shape:getPoints()))
@@ -326,6 +334,13 @@ function love.draw()
 	
 	local h = love.window.getHeight() - 41
 	love.graphics.draw(character_bottom, x, h, 0, 1, 1, playerWidth / 2, 0)
+
+	local x, y = player.body:getPosition()
+	if x <= 80 then
+		player.body:setPosition(80, y)
+	elseif x >= 720 then
+		player.body:setPosition(720, y)
+	end
 end
 
 function beginContact(a, b, coll)
