@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Finish : MonoBehaviour {
+public class ScoreArea : MonoBehaviour
+{
     public int PlayerId;
 }

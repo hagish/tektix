@@ -766,7 +766,7 @@ GameObject:
   - 65: {fileID: 465799993}
   - 114: {fileID: 465799994}
   m_Layer: 0
-  m_Name: Finish
+  m_Name: ScoreArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2097,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1308089302}
   - 20: {fileID: 1308089301}
-  - 124: {fileID: 1308089300}
   - 92: {fileID: 1308089299}
   - 81: {fileID: 1308089298}
   - 114: {fileID: 1308089303}
@@ -2117,13 +2116,6 @@ AudioListener:
   m_GameObject: {fileID: 1308089297}
   m_Enabled: 1
 --- !u!92 &1308089299
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1308089297}
-  m_Enabled: 1
---- !u!124 &1308089300
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3223,7 +3215,7 @@ GameObject:
   - 65: {fileID: 2086092939}
   - 114: {fileID: 2086092941}
   m_Layer: 0
-  m_Name: Finish
+  m_Name: ScoreArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
