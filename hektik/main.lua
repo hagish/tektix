@@ -1,3 +1,30 @@
+json = require('json')
+
+Server = {}
+
+function StartClient()
+	Server.host, Server.port = "192.168.2.39", 25001
+	Server.socket = require("socket")
+	Server.tcp = assert(Server.socket.tcp())
+	Server.tcp:connect(Server.host, Server.port)
+end
+
+function SendMessage(msg)
+	Server.tcp:send(msg)
+end
+
+function UpdateClient()
+	while true do
+		local s, status, partial = Server.tcp:receive()
+		print(s or partial)
+		if status == "closed" then break end
+	end
+end
+
+function QuitClient()
+	Server.tcp:close()
+end
+
 function love.load()
 	tubeCapClose1 = false
 	tubeCapClose2 = false
@@ -118,10 +145,13 @@ function love.load()
 	box_count = 0
 	box_spawn = love.timer.getTime()
 	box = {}
+
+	StartClient()
 end
 
 function love.update(dt)
 	world:update(dt)
+	--UpdateClient()
 
 	if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
 		player.body:setLinearVelocity(-500, 0)
@@ -269,6 +299,7 @@ function beginContact(a, b, coll)
 	if a:getUserData() == "Tube0" then
 		if b:getUserData() % 3 == 0 then
 			print("Tube1")
+			SendMessage(json.encode({res = 0}))
 		else
 			tubeCapClose1 = love.timer.getTime()
 		end
@@ -279,6 +310,7 @@ function beginContact(a, b, coll)
 	if b:getUserData() == "Tube0" then
 		if b:getUserData() % 3 == 0 then
 			print("Tube1")
+			SendMessage(json.encode({res = 0}))
 		else
 			tubeCapClose1 = love.timer.getTime()
 		end
@@ -289,6 +321,7 @@ function beginContact(a, b, coll)
 	if a:getUserData() == "Tube1" then
 		if b:getUserData() % 3 == 1 then
 			print("Tube2")
+			SendMessage(json.encode({res = 1}))
 		else
 			tubeCapClose2 = love.timer.getTime()
 		end
@@ -299,6 +332,7 @@ function beginContact(a, b, coll)
 	if b:getUserData() == "Tube1" then
 		if b:getUserData() % 3 == 1 then
 			print("Tube2")
+			SendMessage(json.encode({res = 1}))
 		else
 			tubeCapClose2 = love.timer.getTime()
 		end
@@ -309,6 +343,7 @@ function beginContact(a, b, coll)
 	if a:getUserData() == "Tube2" then
 		if b:getUserData() % 3 == 2 then
 			print("Tube3")
+			SendMessage(json.encode({res = 2}))
 		else
 			tubeCapClose3 = love.timer.getTime()
 		end
@@ -319,6 +354,7 @@ function beginContact(a, b, coll)
 	if b:getUserData() == "Tube2" then
 		if b:getUserData() % 3 == 2 then
 			print("Tube3")
+			SendMessage(json.encode({res = 2}))
 		else
 			tubeCapClose3 = love.timer.getTime()
 		end
@@ -343,4 +379,8 @@ function beginContact(a, b, coll)
 			box[b:getUserData()].bomb = love.timer.getTime()
 		end
 	end
+end
+
+function love.quit()
+	QuitClient()
 end
