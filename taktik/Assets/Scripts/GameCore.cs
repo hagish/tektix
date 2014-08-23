@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameCore : MonoBehaviour {
+// * draw no kill
+// * 2 lives
+// * scores
+// * 
+public class GameCore : UKUnitySingletonManuallyCreated<GameCore> {
     public float RoundTime;
     
     public int RoundIndex;
@@ -11,50 +15,23 @@ public class GameCore : MonoBehaviour {
 
     private float time;
 
-	// Use this for initialization
-	IEnumerator Start () {
-	    while(true)
-        {
-            yield return StartCoroutine(CoCountDown(RoundTime));
-            yield return StartCoroutine(CoCalculateRound());
-            ++RoundIndex;
-        }
-
-        yield return null;
-	}
-
-    IEnumerator CoCalculateRound()
+    void Start()
     {
-        Debug.Log("calculate round", gameObject);
-
-        int count = Mathf.Min(Player0.Lanes.Slots.Count, Player1.Lanes.Slots.Count);
-
-        for (int i = 0; i < count; ++i)
-        {
-            Unit unit0 = Player0.Lanes.Slots[i].Unit;
-            Unit unit1 = Player1.Lanes.Slots[i].Unit;
-
-            // calculate score
-            int winner = CalculateWinner(unit0, unit1);
-            if (winner == 0) Player0.Score += 1;
-            if (winner == 1) Player1.Score += 1;
-
-            UpdateUI();
-
-            Player0.Lanes.Slots[i].Clear();
-            Player1.Lanes.Slots[i].Clear();
-        }
-        
-        yield return null;
+        UpdateUI();
     }
 
     private void UpdateUI()
     {
         UIGlue.Instance.Player0Score.text = string.Format("{0:0.} points", Player0.Score);
         UIGlue.Instance.Player1Score.text = string.Format("{0:0.} points", Player1.Score);
-        
-        UIGlue.Instance.Player0Time.text = string.Format("{0:0.} sec", time);
-        UIGlue.Instance.Player1Time.text = string.Format("{0:0.} sec", time);
+
+        UIGlue.Instance.Player0Time.text = "";// string.Format("{0:0.} sec", time);
+        UIGlue.Instance.Player1Time.text = "";// string.Format("{0:0.} sec", time);
+    }
+
+    public static bool Ignores(Unit.UnitType a, Unit.UnitType b)
+    {
+        return a == b;
     }
 
     public static bool Beats(Unit.UnitType a, Unit.UnitType b)
@@ -64,18 +41,20 @@ public class GameCore : MonoBehaviour {
             (a == Unit.UnitType.SCISSOR && b == Unit.UnitType.PAPER);
     }
 
-    public static int CalculateWinner(Unit unit0, Unit unit1)
+    // returns which unit dies, true -> dead or damage
+    public static UKTuple<bool,bool> CalculateFightDamage(Unit unit0, Unit unit1)
     {
         // empty
-        if (unit0 == null && unit1 == null) return -1;
-        if (unit0 == null && unit1 != null) return 0;
-        if (unit0 != null && unit1 == null) return 1;
+        if (unit0 == null && unit1 == null) return new UKTuple<bool,bool>(false, false);
+        if (unit0 == null && unit1 != null) return new UKTuple<bool, bool>(false, false);
+        if (unit0 != null && unit1 == null) return new UKTuple<bool, bool>(false, false);
         // totally complex mechanic
         var t0 = unit0.Type;
         var t1 = unit1.Type;
-        if (Beats(t0, t1)) return 0;
-        if (Beats(t1, t0)) return 1;
-        return -1;
+        if (t0 == t1) return new UKTuple<bool, bool>(false, false);
+        if (Beats(t0, t1)) return new UKTuple<bool, bool>(false, true);
+        if (Beats(t1, t0)) return new UKTuple<bool, bool>(true, false);
+        return new UKTuple<bool, bool>(false, false);
     }
 
     IEnumerator CoCountDown(float countdown)
@@ -90,4 +69,11 @@ public class GameCore : MonoBehaviour {
         }
     }
 
+
+    public void Score(int playerId, int score)
+    {
+        if (playerId == 0) Player0.Score += score;
+        else if (playerId == 1) Player1.Score += score;
+        UpdateUI();
+    }
 }
