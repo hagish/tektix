@@ -5,6 +5,7 @@ playerJumpPowerDown = 750
 boxSpawnRateInSeconds = 0.75
 playerWidth = 128
 playerHeight = 32
+boxMovementVelocity = 200
 
 function love.load()
 	tubeCapClose1 = false
@@ -176,7 +177,7 @@ function love.update(dt)
 		box[box_count].body = love.physics.newBody(world, -128, love.window.getHeight() - 256, "dynamic")
 		box[box_count].shape = love.physics.newRectangleShape(0, 0, 32, 32)
 		box[box_count].fixture = love.physics.newFixture(box[box_count].body, box[box_count].shape, 10)
-		box[box_count].body:setLinearVelocity(200, 0)
+		box[box_count].body:setLinearVelocity(boxMovementVelocity, 0)
 		box[box_count].fixture:setUserData(box_count)
 	end
 
@@ -336,12 +337,12 @@ function beginContact(a, b, coll)
 
 	-- i guess this is not used anymore // alex
 	--[[if a:getUserData() == "Player" then
-		box[b:getUserData()].body:setLinearVelocity(boxVelocityUp, 0)
+		box[b:getUserData()].body:setLinearVelocity(0, 0)
 		collWall = false
 	end
 
 	if b:getUserData() == "Player" then
-		box[a:getUserData()].body:setLinearVelocity(boxVelocityUp, 0)
+		box[a:getUserData()].body:setLinearVelocity(0, 0)
 		collWall = false
 	end]]--
 
