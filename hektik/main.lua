@@ -3,11 +3,11 @@ playerMoveSpeed = 400
 playerJumpPowerUp = 750
 playerJumpPowerDown = 750
 boxSpawnRateInSeconds = 0.75
-playerWidth = 128
-playerHeight = 32
+playerWidth = 90
+playerHeight = 93
 boxMovementVelocity = 200
 candyRadius = 27
-playerSpawnHeight = 40
+playerSpawnHeight = 20
 candySpawnHeight = 104
 
 -- sprites
@@ -15,6 +15,8 @@ candy_green = love.graphics.newImage("candy_green.png")
 candy_red = love.graphics.newImage("candy_red.png")
 candy_yellow = love.graphics.newImage("candy_yellow.png")
 background = love.graphics.newImage("background_800.png")
+character_top = love.graphics.newImage("character_top.png")
+character_bottom = love.graphics.newImage("character_bottom.png")
 
 function love.load()
 	tubeCapClose1 = false
@@ -255,9 +257,9 @@ function love.draw()
 	end
 
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.polygon("fill", player.body:getWorldPoints(player.shape:getPoints()))
 	
 	-- no need to see those anymore
+	--love.graphics.polygon("fill", player.body:getWorldPoints(player.shape:getPoints()))
 	--[[love.graphics.polygon("fill", border.body:getWorldPoints(border.shape:getPoints()))
 	love.graphics.polygon("fill", border2.body:getWorldPoints(border2.shape:getPoints()))
 	love.graphics.polygon("fill", border3.body:getWorldPoints(border3.shape:getPoints()))
@@ -275,11 +277,11 @@ function love.draw()
 
 			local image = nil
 			if i % 3 == 0 then
-				image = love.graphics.newImage("candy_red.png")
+				image = candy_red
 			elseif i % 3 == 1 then
-				image = love.graphics.newImage("candy_green.png")
+				image = candy_green
 			elseif i % 3 == 2 then
-				image = love.graphics.newImage("candy_yellow.png")
+				image = candy_yellow
 			end
 						
 			local x, y = box[i].body:getPosition()
@@ -288,6 +290,12 @@ function love.draw()
 			love.graphics.draw(image, x, y, r, 1, 1, candyRadius + 2, candyRadius + 3)
 		end
 	end
+	
+	local x, y = player.body:getPosition()
+	love.graphics.draw(character_top, x, y, 0, 1, 1, playerWidth / 2, playerHeight / 2)
+	
+	local h = love.window.getHeight() - 41
+	love.graphics.draw(character_bottom, x, h, 0, 1, 1, playerWidth / 2, 0)
 end
 
 function beginContact(a, b, coll)
