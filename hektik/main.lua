@@ -3,7 +3,7 @@ json = require('json')
 Server = {}
 
 function StartClient()
-	Server.host, Server.port = "192.168.2.39", 25001
+	Server.host, Server.port = "192.168.2.39", 25000
 	Server.socket = require("socket")
 	Server.tcp = assert(Server.socket.tcp())
 	Server.tcp:connect(Server.host, Server.port)
@@ -25,6 +25,21 @@ function QuitClient()
 	Server.tcp:close()
 end
 
+-- balancing variables
+playerMoveSpeed = 400
+playerJumpPowerUp = 750
+playerJumpPowerDown = 750
+boxSpawnRateInSeconds = 0.75
+playerWidth = 128
+playerHeight = 32
+boxMovementVelocity = 200
+candyRadius = 27
+
+-- sprites
+candy_green = love.graphics.newImage("candy_green.png")
+candy_red = love.graphics.newImage("candy_red.png")
+candy_yellow = love.graphics.newImage("candy_yellow.png")
+
 function love.load()
 	tubeCapClose1 = false
 	tubeCapClose2 = false
@@ -36,7 +51,7 @@ function love.load()
 
 	player = {}
 	player.body = love.physics.newBody(world, love.window.getWidth() * 0.5 - 32, love.window.getHeight() - 180, "kinematic")
-	player.shape = love.physics.newRectangleShape(0, 0, 64, 64)
+	player.shape = love.physics.newRectangleShape(0, 0, playerWidth, playerHeight)
 	player.fixture = love.physics.newFixture(player.body, player.shape, 0.1)
 	player.body:setFixedRotation(true)
 	player.isPush = false
@@ -154,9 +169,9 @@ function love.update(dt)
 	--UpdateClient()
 
 	if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
-		player.body:setLinearVelocity(-500, 0)
+		player.body:setLinearVelocity(-1 * playerMoveSpeed, 0)
 	elseif love.keyboard.isDown("right") or love.keyboard.isDown("d") then
-		player.body:setLinearVelocity(500, 0)
+		player.body:setLinearVelocity(playerMoveSpeed, 0)
 	else
 		player.body:setLinearVelocity(0, 0)
 	end
@@ -166,9 +181,9 @@ function love.update(dt)
 	end
 
 	if player.isPush and player.isPush > love.timer.getTime() - 0.1 then
-		player.body:setLinearVelocity(0, -750)
+		player.body:setLinearVelocity(0, -1 * playerJumpPowerUp)
 	elseif player.isPush and player.isPush > love.timer.getTime() - 0.2 then
-		player.body:setLinearVelocity(0, 750)
+		player.body:setLinearVelocity(0, playerJumpPowerDown)
 	elseif player.isPush then
 		player.isPush = false
 		local x, y = player.body:getPosition()
@@ -190,15 +205,15 @@ function love.update(dt)
 		end
 	end
 
-	if box_spawn < love.timer.getTime() - 1 then
+	if box_spawn < love.timer.getTime() - boxSpawnRateInSeconds then
 		box_spawn = love.timer.getTime()
 
 		box_count = box_count + math.floor(math.random() * 3) + 1
 		box[box_count] = {}
 		box[box_count].body = love.physics.newBody(world, -128, love.window.getHeight() - 256, "dynamic")
-		box[box_count].shape = love.physics.newRectangleShape(0, 0, 32, 32)
+		box[box_count].shape = love.physics.newCircleShape(0, 0, candyRadius)
 		box[box_count].fixture = love.physics.newFixture(box[box_count].body, box[box_count].shape, 10)
-		box[box_count].body:setLinearVelocity(200, 0)
+		box[box_count].body:setLinearVelocity(boxMovementVelocity, 0)
 		box[box_count].fixture:setUserData(box_count)
 	end
 
@@ -257,7 +272,7 @@ function love.draw()
 	-- Tube 3
 	love.graphics.polygon("fill", tubeBorder5.body:getWorldPoints(tubeBorder1.shape:getPoints()))
 	love.graphics.polygon("fill", tubeBorder6.body:getWorldPoints(tubeBorder2.shape:getPoints()))
-	love.graphics.setColor(0, 0, 255)
+	love.graphics.setColor(255, 255, 0)
 	love.graphics.polygon("fill", tubeEnd3.body:getWorldPoints(tubeEnd3.shape:getPoints()))
 	if tubeCap3.body:isActive() then
 		love.graphics.setColor(255, 255, 255)
@@ -281,14 +296,19 @@ function love.draw()
 				alpha = (box[i].bomb - love.timer.getTime()) * 127
 			end
 
+			local image = nil
 			if i % 3 == 0 then
-				love.graphics.setColor(255, 0, 0, alpha)
+				image = love.graphics.newImage("candy_red.png")
 			elseif i % 3 == 1 then
-				love.graphics.setColor(0, 255, 0, alpha)
+				image = love.graphics.newImage("candy_green.png")
 			elseif i % 3 == 2 then
-				love.graphics.setColor(0, 0, 255, alpha)
+				image = love.graphics.newImage("candy_yellow.png")
 			end
-			love.graphics.polygon("fill", box[i].body:getWorldPoints(box[i].shape:getPoints()))
+						
+			local x, y = box[i].body:getPosition()
+			--love.graphics.circle("fill", x, y, candyRadius, 100 )
+			local r = box[i].body:getAngle()
+			love.graphics.draw(image, x, y, r, 1, 1, candyRadius + 2, candyRadius + 3)
 		end
 	end
 end
@@ -362,15 +382,16 @@ function beginContact(a, b, coll)
 		collWall = false
 	end
 
-	if a:getUserData() == "Player" then
-		box[b:getUserData()].body:setLinearVelocity(200, 0)
+	-- i guess this is not used anymore // alex
+	--[[if a:getUserData() == "Player" then
+		box[b:getUserData()].body:setLinearVelocity(0, 0)
 		collWall = false
 	end
 
 	if b:getUserData() == "Player" then
-		box[a:getUserData()].body:setLinearVelocity(200, 0)
+		box[a:getUserData()].body:setLinearVelocity(0, 0)
 		collWall = false
-	end
+	end]]--
 
 	if collWall then
 		if type(a:getUserData()) == "number" then
