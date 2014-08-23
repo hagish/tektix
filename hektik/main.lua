@@ -83,10 +83,22 @@ function love.load()
 	tubeBorder3.shape = love.physics.newRectangleShape(0, 0, 8, 32)
 	tubeBorder3.fixture = love.physics.newFixture(tubeBorder3.body, tubeBorder3.shape, 5)
 
+	tubeCap2 = {}
+	tubeCap2.body = love.physics.newBody(world, love.window.getWidth() * 0.5, 32, "static")
+	tubeCap2.shape = love.physics.newRectangleShape(0, 0, 128, 8)
+	tubeCap2.fixture = love.physics.newFixture(tubeCap2.body, tubeCap2.shape, 5)
+	tubeCap2.body:setActive(false)
+
 	tubeBorder4 = {}
 	tubeBorder4.body = love.physics.newBody(world, love.window.getWidth() * 0.5 + 64, 24, "static")
 	tubeBorder4.shape = love.physics.newRectangleShape(0, 0, 8, 32)
 	tubeBorder4.fixture = love.physics.newFixture(tubeBorder4.body, tubeBorder4.shape, 5)
+
+	tubeCap3 = {}
+	tubeCap3.body = love.physics.newBody(world, love.window.getWidth() * 0.75, 32, "static")
+	tubeCap3.shape = love.physics.newRectangleShape(0, 0, 128, 8)
+	tubeCap3.fixture = love.physics.newFixture(tubeCap3.body, tubeCap3.shape, 5)
+	tubeCap3.body:setActive(false)
 
 	tubeEnd2 = {}
 	tubeEnd2.body = love.physics.newBody(world, love.window.getWidth() * 0.5, 8, "static")
@@ -167,6 +179,33 @@ function love.update(dt)
 		box[box_count].body:setLinearVelocity(200, 0)
 		box[box_count].fixture:setUserData(box_count)
 	end
+
+	if tubeCapClose1 then
+		if tubeCapClose1 > love.timer.getTime() - 2 then
+			tubeCap1.body:setActive(true)
+		else
+			tubeCap1.body:setActive(false)
+			tubeCapClose1 = false
+		end
+	end
+
+	if tubeCapClose2 then
+		if tubeCapClose2 > love.timer.getTime() - 2 then
+			tubeCap2.body:setActive(true)
+		else
+			tubeCap2.body:setActive(false)
+			tubeCapClose2 = false
+		end
+	end
+
+	if tubeCapClose3 then
+		if tubeCapClose3 > love.timer.getTime() - 2 then
+			tubeCap3.body:setActive(true)
+		else
+			tubeCap3.body:setActive(false)
+			tubeCapClose3 = false
+		end
+	end
 end
 
 function love.draw()
@@ -176,8 +215,10 @@ function love.draw()
 	love.graphics.polygon("fill", tubeBorder2.body:getWorldPoints(tubeBorder2.shape:getPoints()))
 	love.graphics.setColor(255, 0, 0)
 	love.graphics.polygon("fill", tubeEnd1.body:getWorldPoints(tubeEnd1.shape:getPoints()))
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.polygon("fill", tubeCap1.body:getWorldPoints(tubeCap1.shape:getPoints()))
+	if tubeCap1.body:isActive() then
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.polygon("fill", tubeCap1.body:getWorldPoints(tubeCap1.shape:getPoints()))
+	end
 
 	love.graphics.setColor(255, 255, 255)
 	-- Tube 2
@@ -185,6 +226,10 @@ function love.draw()
 	love.graphics.polygon("fill", tubeBorder4.body:getWorldPoints(tubeBorder2.shape:getPoints()))
 	love.graphics.setColor(0, 255, 0)
 	love.graphics.polygon("fill", tubeEnd2.body:getWorldPoints(tubeEnd2.shape:getPoints()))
+	if tubeCap2.body:isActive() then
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.polygon("fill", tubeCap2.body:getWorldPoints(tubeCap2.shape:getPoints()))
+	end
 
 	love.graphics.setColor(255, 255, 255)
 	-- Tube 3
@@ -192,6 +237,10 @@ function love.draw()
 	love.graphics.polygon("fill", tubeBorder6.body:getWorldPoints(tubeBorder2.shape:getPoints()))
 	love.graphics.setColor(0, 0, 255)
 	love.graphics.polygon("fill", tubeEnd3.body:getWorldPoints(tubeEnd3.shape:getPoints()))
+	if tubeCap3.body:isActive() then
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.polygon("fill", tubeCap3.body:getWorldPoints(tubeCap3.shape:getPoints()))
+	end
 
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.polygon("fill", player.body:getWorldPoints(player.shape:getPoints()))
@@ -238,6 +287,8 @@ function beginContact(a, b, coll)
 	if b:getUserData() == "Tube0" then
 		if b:getUserData() % 3 == 0 then
 			print("Tube1")
+		else
+			tubeCapClose1 = love.timer.getTime()
 		end
 		box[a:getUserData()].destroy = true
 		collWall = false
@@ -246,6 +297,8 @@ function beginContact(a, b, coll)
 	if a:getUserData() == "Tube1" then
 		if b:getUserData() % 3 == 1 then
 			print("Tube2")
+		else
+			tubeCapClose2 = love.timer.getTime()
 		end
 		box[b:getUserData()].destroy = true
 		collWall = false
@@ -254,6 +307,8 @@ function beginContact(a, b, coll)
 	if b:getUserData() == "Tube1" then
 		if b:getUserData() % 3 == 1 then
 			print("Tube2")
+		else
+			tubeCapClose2 = love.timer.getTime()
 		end
 		box[a:getUserData()].destroy = true
 		collWall = false
@@ -262,6 +317,8 @@ function beginContact(a, b, coll)
 	if a:getUserData() == "Tube2" then
 		if b:getUserData() % 3 == 2 then
 			print("Tube3")
+		else
+			tubeCapClose3 = love.timer.getTime()
 		end
 		box[b:getUserData()].destroy = true
 		collWall = false
@@ -270,6 +327,8 @@ function beginContact(a, b, coll)
 	if b:getUserData() == "Tube2" then
 		if b:getUserData() % 3 == 2 then
 			print("Tube3")
+		else
+			tubeCapClose3 = love.timer.getTime()
 		end
 		box[a:getUserData()].destroy = true
 		collWall = false
