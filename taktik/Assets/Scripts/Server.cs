@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Collections.Generic;
 
-public class Test : MonoBehaviour 
+public class Server : MonoBehaviour 
 {
     public int Port = 25000;
  
@@ -16,6 +16,10 @@ public class Test : MonoBehaviour
 
     private object syncRoot = new object();
     private List<TcpClient> clients = new List<TcpClient>();
+    private Queue<string> incommingMessages = new Queue<string>();
+
+    public delegate void ReceiveMessage(string message);
+    public event ReceiveMessage EvReceiveMessage;
 
 	// Use this for initialization
 	void OnEnable () 
@@ -92,7 +96,13 @@ public class Test : MonoBehaviour
 
             //message has successfully been received
             UTF8Encoding encoder = new UTF8Encoding();
-            Debug.Log(encoder.GetString(message, 0, bytesRead));
+           
+            var str = encoder.GetString(message, 0, bytesRead);
+
+            lock (syncRoot)
+            {
+                incommingMessages.Enqueue(str);
+            }
         }
 
         tcpClient.Close();
@@ -104,7 +114,15 @@ public class Test : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void Update () {
-	    
+	void Update () 
+    {
+        lock (syncRoot)
+        {
+            while (incommingMessages.Count > 0)
+            {
+                var str = incommingMessages.Dequeue();
+                if (EvReceiveMessage != null) EvReceiveMessage(str);
+            }
+        }
 	}
 }
