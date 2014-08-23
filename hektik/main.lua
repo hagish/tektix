@@ -6,6 +6,12 @@ boxSpawnRateInSeconds = 0.75
 playerWidth = 128
 playerHeight = 32
 boxMovementVelocity = 200
+candyRadius = 27
+
+-- sprites
+candy_green = love.graphics.newImage("candy_green.png")
+candy_red = love.graphics.newImage("candy_red.png")
+candy_yellow = love.graphics.newImage("candy_yellow.png")
 
 function love.load()
 	tubeCapClose1 = false
@@ -175,7 +181,7 @@ function love.update(dt)
 		box_count = box_count + math.floor(math.random() * 3) + 1
 		box[box_count] = {}
 		box[box_count].body = love.physics.newBody(world, -128, love.window.getHeight() - 256, "dynamic")
-		box[box_count].shape = love.physics.newRectangleShape(0, 0, 32, 32)
+		box[box_count].shape = love.physics.newCircleShape(0, 0, candyRadius)
 		box[box_count].fixture = love.physics.newFixture(box[box_count].body, box[box_count].shape, 10)
 		box[box_count].body:setLinearVelocity(boxMovementVelocity, 0)
 		box[box_count].fixture:setUserData(box_count)
@@ -236,7 +242,7 @@ function love.draw()
 	-- Tube 3
 	love.graphics.polygon("fill", tubeBorder5.body:getWorldPoints(tubeBorder1.shape:getPoints()))
 	love.graphics.polygon("fill", tubeBorder6.body:getWorldPoints(tubeBorder2.shape:getPoints()))
-	love.graphics.setColor(0, 0, 255)
+	love.graphics.setColor(255, 255, 0)
 	love.graphics.polygon("fill", tubeEnd3.body:getWorldPoints(tubeEnd3.shape:getPoints()))
 	if tubeCap3.body:isActive() then
 		love.graphics.setColor(255, 255, 255)
@@ -260,14 +266,19 @@ function love.draw()
 				alpha = (box[i].bomb - love.timer.getTime()) * 127
 			end
 
+			local image = nil
 			if i % 3 == 0 then
-				love.graphics.setColor(255, 0, 0, alpha)
+				image = love.graphics.newImage("candy_red.png")
 			elseif i % 3 == 1 then
-				love.graphics.setColor(0, 255, 0, alpha)
+				image = love.graphics.newImage("candy_green.png")
 			elseif i % 3 == 2 then
-				love.graphics.setColor(0, 0, 255, alpha)
+				image = love.graphics.newImage("candy_yellow.png")
 			end
-			love.graphics.polygon("fill", box[i].body:getWorldPoints(box[i].shape:getPoints()))
+						
+			local x, y = box[i].body:getPosition()
+			--love.graphics.circle("fill", x, y, candyRadius, 100 )
+			local r = box[i].body:getAngle()
+			love.graphics.draw(image, x, y, r, 1, 1, candyRadius + 2, candyRadius + 3)
 		end
 	end
 end
