@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
     public SlotManager SlotManager;
     public int Score;
     public int SlotCount;
+    public int SelectedLaneId;
 
     private List<Unit> unitsPool = new List<Unit>();
 
@@ -28,7 +29,7 @@ public class Player : MonoBehaviour {
         if (unitsPool[index] != null)
         {
             var unit = PopUnitFromPool(index);
-            SlotManager.AddUnit(unit);
+            SlotManager.AddUnit(unit, SelectedLaneId);
         }
     }
 
@@ -45,6 +46,11 @@ public class Player : MonoBehaviour {
             unitsPool[index] = null;
             return u;
         }
+    }
+
+    public void SelectLane(int laneId)
+    {
+        SelectedLaneId = laneId;
     }
 
     public void AddUnitToPool(Unit.UnitType type)

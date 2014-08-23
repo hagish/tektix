@@ -1,16 +1,12 @@
 *.bak
-*.blend1
-*.blend2
 .DS_Store
 /Library/*
 /Library
 /Temp
 /Temp/*
 /*.csproj
-/*.unityproj
 /*.sln
 /*.userprefs
 /*.suo
 /*.pidb
 /build*
-/obj

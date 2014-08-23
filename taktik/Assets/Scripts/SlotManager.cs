@@ -16,11 +16,11 @@ public class SlotManager : MonoBehaviour {
 	
 	}
 
-    public void AddUnit(Unit unit)
+    public void AddUnit(Unit unit, int laneId)
     {
         foreach(var slot in Slots)
         {
-            if (slot.IsFree)
+            if (slot.IsFree && slot.LaneId == laneId)
             {
                 slot.AddUnit(unit);
                 return;
