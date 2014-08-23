@@ -3,20 +3,25 @@ playerMoveSpeed = 400
 playerJumpPowerUp = 750
 playerJumpPowerDown = 750
 boxSpawnRateInSeconds = 0.75
-playerWidth = 90
-playerHeight = 93
+playerWidth = 70
+playerHeight = 72
 boxMovementVelocity = 200
-candyRadius = 27
-playerSpawnHeight = 20
+candyRadius = 22
+playerSpawnHeight = 34
 candySpawnHeight = 104
+carSpawnHeight = 60
+floorHeight = 75
+playerCapLeft = 65
+playerCapRight = 735
 
 -- sprites
-candy_green = love.graphics.newImage("candy_green.png")
-candy_red = love.graphics.newImage("candy_red.png")
-candy_yellow = love.graphics.newImage("candy_yellow.png")
+candy_green = love.graphics.newImage("candy_green_800.png")
+candy_red = love.graphics.newImage("candy_red_800.png")
+candy_yellow = love.graphics.newImage("candy_yellow_800.png")
 background = love.graphics.newImage("background_800.png")
-character_top = love.graphics.newImage("character_top.png")
-character_bottom = love.graphics.newImage("character_bottom.png")
+character_top = love.graphics.newImage("character_top_800.png")
+character_bottom = love.graphics.newImage("character_bottom_800.png")
+floor = love.graphics.newImage("floor_800.png") 
 
 function love.load()
 	tubeCapClose1 = false
@@ -150,6 +155,10 @@ function love.update(dt)
 	else
 		player.body:setLinearVelocity(0, 0)
 	end
+	
+	local px, py = player.body:getPosition()
+	if px <= playerCapLeft then player.body:setX(playerCapLeft) end
+	if px >= playerCapRight then player.body:setX(playerCapRight) end
 
 	if love.keyboard.isDown(" ") and not player.isPush then
 		player.isPush = love.timer.getTime()
@@ -294,7 +303,9 @@ function love.draw()
 	local x, y = player.body:getPosition()
 	love.graphics.draw(character_top, x, y, 0, 1, 1, playerWidth / 2, playerHeight / 2)
 	
-	local h = love.window.getHeight() - 41
+	love.graphics.draw(floor, 0, love.window.getHeight() - floorHeight)
+	
+	local h = love.window.getHeight() - carSpawnHeight
 	love.graphics.draw(character_bottom, x, h, 0, 1, 1, playerWidth / 2, 0)
 end
 
