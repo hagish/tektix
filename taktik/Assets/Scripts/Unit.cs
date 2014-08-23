@@ -32,6 +32,7 @@ public class Unit : MonoBehaviour {
         ScoreArea scoreArea = other.gameObject.GetComponent<ScoreArea>();
         if (scoreArea != null && scoreArea.PlayerId != PlayerId)
         {
+            AudioController.Instance.PlaySound("score");
             GameCore.Instance.Score(PlayerId, 1);
             Kill();
         }
@@ -40,6 +41,7 @@ public class Unit : MonoBehaviour {
     public void Kill()
     {
         GameObject.Destroy(gameObject);
+        AudioController.Instance.PlaySound("kill");
     }
 
     public void GetDamage()

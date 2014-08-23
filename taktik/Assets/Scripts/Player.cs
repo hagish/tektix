@@ -14,11 +14,10 @@ public class Player : MonoBehaviour {
 
     void Start()
     {
-        AddUnitToPool(Unit.UnitType.PAPER);
-        AddUnitToPool(Unit.UnitType.ROCK);
-        AddUnitToPool(Unit.UnitType.SCISSOR);
-        AddUnitToPool(Unit.UnitType.PAPER);
-        AddUnitToPool(Unit.UnitType.SCISSOR);
+        for (int i = 0; i < 3; ++i)
+        {
+            AddUnitToPool((Unit.UnitType)(int)(Random.Range(0,3)));
+        }
     }
 
     public void AddUnitToPool(Unit.UnitType type)
@@ -28,6 +27,8 @@ public class Player : MonoBehaviour {
             var unit = Spawner.Instance.Spawn(type);
             Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
             UnitPool.AddUnitAnywhere(unit);
+
+            AudioController.Instance.PlaySound("new_item");
         }
         else
         {
@@ -37,7 +38,8 @@ public class Player : MonoBehaviour {
 
     void OnClickPoolSlot(GameObject target)
     {
-        selectedUnitPoolSlot = target.GetComponent<Slot>();
+        selectedUnitPoolSlot = target.GetComponent<Slot>();        
+        AudioController.Instance.PlaySound("click");
     }
 
     void OnClickLane(GameObject target)
@@ -53,6 +55,8 @@ public class Player : MonoBehaviour {
             unit.gameObject.AddComponent<UnitMovement>().Velocity = SpawnVelocity;
             unit.transform.rotation = Quaternion.Euler(SpawnRotation);
             unit.PlayerId = Id;
+
+            AudioController.Instance.PlaySound("click");
         }
     }
 

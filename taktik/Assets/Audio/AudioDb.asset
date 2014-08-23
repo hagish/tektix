@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8fca985e8a3ff4aa63743f9e50c856, type: 3}
+  m_Name: AudioDb
+  m_EditorClassIdentifier: 
+  Musics: []
+  Sounds:
+  - Name: click
+    Clip: {fileID: 8300000, guid: 18c67e4be52a5ff44830f3a601cf1e0d, type: 3}
+    Volume: 1
+  - Name: kill
+    Clip: {fileID: 8300000, guid: 129bd7c3d76b501448264070e99419f1, type: 3}
+    Volume: 1
+  - Name: score
+    Clip: {fileID: 8300000, guid: b122247a2c2cb444ab33f574d398ee59, type: 3}
+    Volume: 1
+  - Name: new_item
+    Clip: {fileID: 8300000, guid: 2c0adbd95d4aead428ba8bdd85dccb5f, type: 3}
+    Volume: 1
