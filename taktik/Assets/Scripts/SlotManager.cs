@@ -6,15 +6,32 @@ public class SlotManager : MonoBehaviour {
     public int PlayerId;
     public List<Slot> Slots;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public bool HasFreeSlots
+    {
+        get
+        {
+            foreach (var slot in Slots)
+            {
+                if (slot.IsFree)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public void AddUnitAnywhere(Unit unit)
+    {
+        foreach (var slot in Slots)
+        {
+            if (slot.IsFree)
+            {
+                slot.AddUnit(unit);
+                return;
+            }
+        }
+    }
 
     public void AddUnit(Unit unit, int laneId)
     {
@@ -27,4 +44,20 @@ public class SlotManager : MonoBehaviour {
             }
         }
     }
+
+    public Unit PopUnitFromSlot(int index)
+    {
+        if (Slots[index].IsFree)
+        {
+            Debug.LogError(string.Format("no unit at index {0}", index), gameObject);
+            return null;
+        }
+        else
+        {
+            Unit u = Slots[index].Unit;
+            Slots[index].Unit = null;
+            return u;
+        }
+    }
+
 }

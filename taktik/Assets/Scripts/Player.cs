@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
     public int Id;
-    public SlotManager SlotManager;
+    public SlotManager Lanes;
+    public SlotManager UnitPool;
     public int Score;
-    public int SlotCount;
-    public int SelectedLaneId;
-
-    private List<Unit> unitsPool = new List<Unit>();
+    private Slot selectedUnitPoolSlot;
+    public GameObject Selection;
 
     public List<Unit> PrefabUnits;
 
@@ -22,57 +21,44 @@ public class Player : MonoBehaviour {
         AddUnitToPool(Unit.UnitType.SCISSOR);
     }
 
-    public void SelectUnitFromPool(int index)
+    public void AddUnitToPool(Unit.UnitType type)
     {
-        Debug.Log(string.Format("player {0} selects {1}", Id, index), gameObject);
-
-        if (unitsPool[index] != null)
+        if (UnitPool.HasFreeSlots)
         {
-            var unit = PopUnitFromPool(index);
-            SlotManager.AddUnit(unit, SelectedLaneId);
-        }
-    }
-
-    public Unit PopUnitFromPool(int index)
-    {
-        if (unitsPool[index] == null)
-        {
-            Debug.LogError(string.Format("no unit at index {0}", index), gameObject);
-            return null;
+            var unit = Spawner.Instance.Spawn(type);
+            Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
+            UnitPool.AddUnitAnywhere(unit);
         }
         else
         {
-            Unit u = unitsPool[index];
-            unitsPool[index] = null;
-            return u;
+            Debug.Log("no free index slot in pool -> drop");
         }
     }
 
-    public void SelectLane(int laneId)
+    void OnClickPoolSlot(GameObject target)
     {
-        SelectedLaneId = laneId;
+        selectedUnitPoolSlot = target.GetComponent<Slot>();
     }
 
-    public void AddUnitToPool(Unit.UnitType type)
+    void OnClickLane(GameObject target)
     {
-        for (int i = 0; i < SlotCount; ++i)
+        Slot selectedLane = target.GetComponent<Slot>();
+
+        if (selectedUnitPoolSlot != null && !selectedUnitPoolSlot.IsFree && selectedLane != null && selectedLane.IsFree)
         {
-            if (i < unitsPool.Count && unitsPool[i] == null)
-            {
-                var unit = Spawner.Instance.Spawn(type);
-                Debug.Log(string.Format("added unit {0} to index {1}", unit, i), gameObject);
-                unitsPool[i] = unit;
-                return;
-            }
-            else if (unitsPool.Count < SlotCount)
-            {
-                var unit = Spawner.Instance.Spawn(type);
-                Debug.Log(string.Format("added unit {0} to index {1}", unit, i), gameObject);
-                unitsPool.Add(unit);
-                return;
-            }
+            var unit = selectedUnitPoolSlot.Unit;
+            selectedUnitPoolSlot.Unit = null;
+            selectedLane.AddUnit(unit);
         }
+    }
 
-        Debug.Log("no free index slot in pool -> drop");
+    void Update()
+    {
+        var active = selectedUnitPoolSlot != null && !selectedUnitPoolSlot.IsFree;
+        Selection.SetActive(active);
+        if (active)
+        {
+            Selection.transform.position = selectedUnitPoolSlot.transform.position;
+        }
     }
 }

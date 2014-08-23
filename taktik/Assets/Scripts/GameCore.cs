@@ -9,6 +9,8 @@ public class GameCore : MonoBehaviour {
     public Player Player0;
     public Player Player1;
 
+    private float time;
+
 	// Use this for initialization
 	IEnumerator Start () {
 	    while(true)
@@ -25,23 +27,34 @@ public class GameCore : MonoBehaviour {
     {
         Debug.Log("calculate round", gameObject);
 
-        int count = Mathf.Min(Player0.SlotManager.Slots.Count, Player1.SlotManager.Slots.Count);
+        int count = Mathf.Min(Player0.Lanes.Slots.Count, Player1.Lanes.Slots.Count);
 
         for (int i = 0; i < count; ++i)
         {
-            Unit unit0 = Player0.SlotManager.Slots[i].Unit;
-            Unit unit1 = Player1.SlotManager.Slots[i].Unit;
+            Unit unit0 = Player0.Lanes.Slots[i].Unit;
+            Unit unit1 = Player1.Lanes.Slots[i].Unit;
 
             // calculate score
             int winner = CalculateWinner(unit0, unit1);
             if (winner == 0) Player0.Score += 1;
             if (winner == 1) Player1.Score += 1;
 
-            Player0.SlotManager.Slots[i].Clear();
-            Player1.SlotManager.Slots[i].Clear();
+            UpdateUI();
+
+            Player0.Lanes.Slots[i].Clear();
+            Player1.Lanes.Slots[i].Clear();
         }
         
         yield return null;
+    }
+
+    private void UpdateUI()
+    {
+        UIGlue.Instance.Player0Score.text = string.Format("{0:0.} points", Player0.Score);
+        UIGlue.Instance.Player1Score.text = string.Format("{0:0.} points", Player1.Score);
+        
+        UIGlue.Instance.Player0Time.text = string.Format("{0:0.} sec", time);
+        UIGlue.Instance.Player1Time.text = string.Format("{0:0.} sec", time);
     }
 
     private bool Beats(Unit.UnitType a, Unit.UnitType b)
@@ -65,18 +78,16 @@ public class GameCore : MonoBehaviour {
         return -1;
     }
 
-    IEnumerator CoCountDown(float time)
+    IEnumerator CoCountDown(float countdown)
     {
+        time = countdown;
+
         while(time > 0f)
         {
-            Debug.Log(string.Format("time {0}", time), gameObject);
+            UpdateUI();
             yield return new WaitForSeconds(1f);
             time -= 1f;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
