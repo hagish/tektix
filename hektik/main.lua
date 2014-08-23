@@ -1,3 +1,11 @@
+-- balancing variables
+playerMoveSpeed = 400
+playerJumpPowerUp = 750
+playerJumpPowerDown = 750
+boxSpawnRateInSeconds = 0.75
+playerWidth = 128
+playerHeight = 32
+
 function love.load()
 	tubeCapClose1 = false
 	tubeCapClose2 = false
@@ -9,7 +17,7 @@ function love.load()
 
 	player = {}
 	player.body = love.physics.newBody(world, love.window.getWidth() * 0.5 - 32, love.window.getHeight() - 180, "kinematic")
-	player.shape = love.physics.newRectangleShape(0, 0, 64, 64)
+	player.shape = love.physics.newRectangleShape(0, 0, playerWidth, playerHeight)
 	player.fixture = love.physics.newFixture(player.body, player.shape, 0.1)
 	player.body:setFixedRotation(true)
 	player.isPush = false
@@ -112,9 +120,9 @@ function love.update(dt)
 	world:update(dt)
 
 	if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
-		player.body:setLinearVelocity(-500, 0)
+		player.body:setLinearVelocity(-1 * playerMoveSpeed, 0)
 	elseif love.keyboard.isDown("right") or love.keyboard.isDown("d") then
-		player.body:setLinearVelocity(500, 0)
+		player.body:setLinearVelocity(playerMoveSpeed, 0)
 	else
 		player.body:setLinearVelocity(0, 0)
 	end
@@ -124,9 +132,9 @@ function love.update(dt)
 	end
 
 	if player.isPush and player.isPush > love.timer.getTime() - 0.1 then
-		player.body:setLinearVelocity(0, -750)
+		player.body:setLinearVelocity(0, -1 * playerJumpPowerUp)
 	elseif player.isPush and player.isPush > love.timer.getTime() - 0.2 then
-		player.body:setLinearVelocity(0, 750)
+		player.body:setLinearVelocity(0, playerJumpPowerDown)
 	elseif player.isPush then
 		player.isPush = false
 		local x, y = player.body:getPosition()
@@ -148,7 +156,7 @@ function love.update(dt)
 		end
 	end
 
-	if box_spawn < love.timer.getTime() - 1 then
+	if box_spawn < love.timer.getTime() - boxSpawnRateInSeconds then
 		box_spawn = love.timer.getTime()
 
 		box_count = box_count + math.floor(math.random() * 3) + 1
@@ -267,15 +275,16 @@ function beginContact(a, b, coll)
 		collWall = false
 	end
 
-	if a:getUserData() == "Player" then
-		box[b:getUserData()].body:setLinearVelocity(200, 0)
+	-- i guess this is not used anymore // alex
+	--[[if a:getUserData() == "Player" then
+		box[b:getUserData()].body:setLinearVelocity(boxVelocityUp, 0)
 		collWall = false
 	end
 
 	if b:getUserData() == "Player" then
-		box[a:getUserData()].body:setLinearVelocity(200, 0)
+		box[a:getUserData()].body:setLinearVelocity(boxVelocityUp, 0)
 		collWall = false
-	end
+	end]]--
 
 	if collWall then
 		if type(a:getUserData()) == "number" then
