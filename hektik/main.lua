@@ -30,15 +30,20 @@ playerMoveSpeed = 400
 playerJumpPowerUp = 750
 playerJumpPowerDown = 750
 boxSpawnRateInSeconds = 0.75
-playerWidth = 128
-playerHeight = 32
+playerWidth = 90
+playerHeight = 93
 boxMovementVelocity = 200
 candyRadius = 27
+playerSpawnHeight = 20
+candySpawnHeight = 104
 
 -- sprites
 candy_green = love.graphics.newImage("candy_green.png")
 candy_red = love.graphics.newImage("candy_red.png")
 candy_yellow = love.graphics.newImage("candy_yellow.png")
+background = love.graphics.newImage("background_800.png")
+character_top = love.graphics.newImage("character_top.png")
+character_bottom = love.graphics.newImage("character_bottom.png")
 
 function love.load()
 	tubeCapClose1 = false
@@ -50,7 +55,7 @@ function love.load()
 	world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
 	player = {}
-	player.body = love.physics.newBody(world, love.window.getWidth() * 0.5 - 32, love.window.getHeight() - 180, "kinematic")
+	player.body = love.physics.newBody(world, love.window.getWidth() * 0.5 - 32, love.window.getHeight() - playerSpawnHeight, "kinematic")
 	player.shape = love.physics.newRectangleShape(0, 0, playerWidth, playerHeight)
 	player.fixture = love.physics.newFixture(player.body, player.shape, 0.1)
 	player.body:setFixedRotation(true)
@@ -59,17 +64,17 @@ function love.load()
 
 	-- Border
 	border = {}
-	border.body = love.physics.newBody(world, love.window.getWidth() * 0.5, love.window.getHeight() - 32, "static")
+	border.body = love.physics.newBody(world, love.window.getWidth() * 0.5, love.window.getHeight(), "static")
 	border.shape = love.physics.newRectangleShape(0, 0, love.window.getWidth(), 64)
 	border.fixture = love.physics.newFixture(border.body, border.shape, 5)
 
 	border2 = {}
-	border2.body = love.physics.newBody(world, 0, love.window.getHeight() - 128, "static")
+	border2.body = love.physics.newBody(world, 0, love.window.getHeight(), "static")
 	border2.shape = love.physics.newRectangleShape(0, 0, 64, 128)
 	border2.fixture = love.physics.newFixture(border2.body, border2.shape, 5)
 
 	border3 = {}
-	border3.body = love.physics.newBody(world, love.window.getWidth(), love.window.getHeight() - 128, "static")
+	border3.body = love.physics.newBody(world, love.window.getWidth(), love.window.getHeight(), "static")
 	border3.shape = love.physics.newRectangleShape(0, 0, 64, 128)
 	border3.fixture = love.physics.newFixture(border3.body, border3.shape, 5)
 
@@ -79,13 +84,13 @@ function love.load()
 	border4.fixture = love.physics.newFixture(border4.body, border4.shape, 5)
 
 	border5 = {}
-	border5.body = love.physics.newBody(world, 16, 128, "static")
-	border5.shape = love.physics.newRectangleShape(0, 0, 32, 320)
+	border5.body = love.physics.newBody(world, 16, 220, "static")
+	border5.shape = love.physics.newRectangleShape(0, 0, 32, 480)
 	border5.fixture = love.physics.newFixture(border5.body, border5.shape, 5)
 
 	border6 = {}
-	border6.body = love.physics.newBody(world, love.window.getWidth() - 16, 128, "static")
-	border6.shape = love.physics.newRectangleShape(0, 0, 32, 320)
+	border6.body = love.physics.newBody(world, love.window.getWidth() - 16, 220, "static")
+	border6.shape = love.physics.newRectangleShape(0, 0, 32, 480)
 	border6.fixture = love.physics.newFixture(border6.body, border6.shape, 5)
 
 	-- Tubes 1
@@ -188,7 +193,7 @@ function love.update(dt)
 		player.isPush = false
 		local x, y = player.body:getPosition()
 		player.body:setLinearVelocity(0, 0)
-		player.body:setPosition(x, love.window.getHeight() - 180)
+		player.body:setPosition(x, love.window.getHeight() - playerSpawnHeight)
 	end
 
 	for i = 1, box_count do
@@ -210,7 +215,7 @@ function love.update(dt)
 
 		box_count = box_count + math.floor(math.random() * 3) + 1
 		box[box_count] = {}
-		box[box_count].body = love.physics.newBody(world, -128, love.window.getHeight() - 256, "dynamic")
+		box[box_count].body = love.physics.newBody(world, -128, love.window.getHeight() - candySpawnHeight, "dynamic")
 		box[box_count].shape = love.physics.newCircleShape(0, 0, candyRadius)
 		box[box_count].fixture = love.physics.newFixture(box[box_count].body, box[box_count].shape, 10)
 		box[box_count].body:setLinearVelocity(boxMovementVelocity, 0)
@@ -246,6 +251,8 @@ function love.update(dt)
 end
 
 function love.draw()
+	love.graphics.draw(background)
+
 	love.graphics.setColor(255, 255, 255)
 	-- Tube 1
 	love.graphics.polygon("fill", tubeBorder1.body:getWorldPoints(tubeBorder1.shape:getPoints()))
@@ -280,13 +287,15 @@ function love.draw()
 	end
 
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.polygon("fill", player.body:getWorldPoints(player.shape:getPoints()))
-	love.graphics.polygon("fill", border.body:getWorldPoints(border.shape:getPoints()))
+	
+	-- no need to see those anymore
+	--love.graphics.polygon("fill", player.body:getWorldPoints(player.shape:getPoints()))
+	--[[love.graphics.polygon("fill", border.body:getWorldPoints(border.shape:getPoints()))
 	love.graphics.polygon("fill", border2.body:getWorldPoints(border2.shape:getPoints()))
 	love.graphics.polygon("fill", border3.body:getWorldPoints(border3.shape:getPoints()))
 	love.graphics.polygon("fill", border4.body:getWorldPoints(border4.shape:getPoints()))
 	love.graphics.polygon("fill", border5.body:getWorldPoints(border5.shape:getPoints()))
-	love.graphics.polygon("fill", border6.body:getWorldPoints(border6.shape:getPoints()))
+	love.graphics.polygon("fill", border6.body:getWorldPoints(border6.shape:getPoints()))]]--
 
 	for i = 1, box_count do
 		if box[i] and not box[i].destroy then
@@ -298,11 +307,11 @@ function love.draw()
 
 			local image = nil
 			if i % 3 == 0 then
-				image = love.graphics.newImage("candy_red.png")
+				image = candy_red
 			elseif i % 3 == 1 then
-				image = love.graphics.newImage("candy_green.png")
+				image = candy_green
 			elseif i % 3 == 2 then
-				image = love.graphics.newImage("candy_yellow.png")
+				image = candy_yellow
 			end
 						
 			local x, y = box[i].body:getPosition()
@@ -311,6 +320,12 @@ function love.draw()
 			love.graphics.draw(image, x, y, r, 1, 1, candyRadius + 2, candyRadius + 3)
 		end
 	end
+	
+	local x, y = player.body:getPosition()
+	love.graphics.draw(character_top, x, y, 0, 1, 1, playerWidth / 2, playerHeight / 2)
+	
+	local h = love.window.getHeight() - 41
+	love.graphics.draw(character_bottom, x, h, 0, 1, 1, playerWidth / 2, 0)
 end
 
 function beginContact(a, b, coll)
