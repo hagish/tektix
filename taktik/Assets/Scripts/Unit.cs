@@ -23,7 +23,7 @@ public class Unit : MonoBehaviour {
             {
                 var result = GameCore.CalculateFightDamage(this, otherUnit);
                 // if i lost kill me
-                if (result.a) Kill();
+                if (result.a) Kill(true);
                 // but if the other one loses i get damage
                 else if (result.b) GetDamage();
             }
@@ -34,14 +34,14 @@ public class Unit : MonoBehaviour {
         {
             AudioController.Instance.PlaySound("score");
             GameCore.Instance.Score(PlayerId, 1);
-            Kill();
+            Kill(false);
         }
     }
 
-    public void Kill()
+    public void Kill(bool playSound)
     {
         GameObject.Destroy(gameObject);
-        AudioController.Instance.PlaySound("kill");
+        if (playSound) AudioController.Instance.PlaySound("kill");
     }
 
     public void GetDamage()
@@ -50,7 +50,7 @@ public class Unit : MonoBehaviour {
 
         if (Lives == 0)
         {
-            Kill();
+            Kill(true);
         }
     }
 }
