@@ -12,13 +12,20 @@ public class Unit : MonoBehaviour {
 
     public UnitType Type;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void OnTriggerEnter(Collider other)
+    {
+        Unit otherUnit = other.gameObject.GetComponent<Unit>();
+        if (otherUnit != null)
+        {
+            if (otherUnit.PlayerId != PlayerId)
+            {
+                int winner = GameCore.CalculateWinner(this, otherUnit);
+                // draw or other unit wins -> die
+                if (winner == -1 || winner == 1)
+                {
+                    GameObject.Destroy(gameObject);
+                }
+            }
+        }
+    }
 }

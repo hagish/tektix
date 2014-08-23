@@ -14,14 +14,6 @@ public class UKCollisionFinderHelper : MonoBehaviour {
 		Debug.Log("OnCollisionEnter2D " + collision, gameObject);
 	}
 	
-	void OnCollisionStay(Collision collision) {
-		Debug.Log("OnCollisionStay " + collision, gameObject);
-	}
-
-	void OnCollisionStay2D(Collision2D collision) {
-		Debug.Log("OnCollisionStay2D " + collision, gameObject);
-	}
-	
 	void OnCollisionExit(Collision collision) {
 		Debug.Log("OnCollisionExit " + collision, gameObject);
 	}
@@ -36,14 +28,6 @@ public class UKCollisionFinderHelper : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		Debug.Log("OnTriggerEnter2D " + other, gameObject);
-	}
-
-	void OnTriggerStay(Collider other) {
-		Debug.Log("OnTriggerStay " + other, gameObject);
-	}
-
-	void OnTriggerStay2D(Collider2D other) {
-		Debug.Log("OnTriggerStay2D " + other, gameObject);
 	}
 
 	void OnTriggerExit(Collider other) {

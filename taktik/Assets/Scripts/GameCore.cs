@@ -57,14 +57,14 @@ public class GameCore : MonoBehaviour {
         UIGlue.Instance.Player1Time.text = string.Format("{0:0.} sec", time);
     }
 
-    private bool Beats(Unit.UnitType a, Unit.UnitType b)
+    public static bool Beats(Unit.UnitType a, Unit.UnitType b)
     {
         return (a == Unit.UnitType.PAPER && b == Unit.UnitType.ROCK) ||
             (a == Unit.UnitType.ROCK && b == Unit.UnitType.SCISSOR) ||
             (a == Unit.UnitType.SCISSOR && b == Unit.UnitType.PAPER);
     }
 
-    private int CalculateWinner(Unit unit0, Unit unit1)
+    public static int CalculateWinner(Unit unit0, Unit unit1)
     {
         // empty
         if (unit0 == null && unit1 == null) return -1;

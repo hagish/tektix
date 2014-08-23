@@ -9,8 +9,8 @@ public class Player : MonoBehaviour {
     public int Score;
     private Slot selectedUnitPoolSlot;
     public GameObject Selection;
-
-    public List<Unit> PrefabUnits;
+    public Vector3 SpawnVelocity;
+    public Vector3 SpawnRotation;
 
     void Start()
     {
@@ -48,7 +48,11 @@ public class Player : MonoBehaviour {
         {
             var unit = selectedUnitPoolSlot.Unit;
             selectedUnitPoolSlot.Unit = null;
-            selectedLane.AddUnit(unit);
+            //selectedLane.AddUnit(unit);
+            unit.transform.position = selectedLane.transform.position;
+            unit.gameObject.AddComponent<UnitMovement>().Velocity = SpawnVelocity;
+            unit.transform.rotation = Quaternion.Euler(SpawnRotation);
+            unit.PlayerId = Id;
         }
     }
 
