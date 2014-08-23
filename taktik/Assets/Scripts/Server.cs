@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Net.Sockets;
 using System.Threading;
+#if UNITY_STANDALONE
+using System.Net.Sockets;
 using System.Net;
+#else
+using LostPolygon.System.Net.Sockets;
+using LostPolygon.System.Net;
+#endif
 using System.Text;
 using System.Collections.Generic;
 
@@ -54,6 +59,8 @@ public class Server : MonoBehaviour
             //blocks until a client has connected to the server
             TcpClient client = this.tcpListener.AcceptTcpClient();
 
+            Debug.Log("client connected");
+
             //create a thread to handle communication 
             //with connected client
             Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
@@ -98,6 +105,7 @@ public class Server : MonoBehaviour
             UTF8Encoding encoder = new UTF8Encoding();
            
             var str = encoder.GetString(message, 0, bytesRead);
+            Debug.Log(str);
 
             lock (syncRoot)
             {
@@ -111,6 +119,8 @@ public class Server : MonoBehaviour
         {
             clients.Remove(tcpClient);
         }
+
+        Debug.Log("client disconnected");
     }
 	
 	// Update is called once per frame
