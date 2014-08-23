@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Unit : MonoBehaviour {
     public enum UnitType {
-        SCISSOR,
-        ROCK,
-        PAPER,
+        SCISSOR = 0,
+        ROCK = 1,
+        PAPER = 2,
     }
+
+    public int PlayerId;
 
     public UnitType Type;
 
