@@ -881,6 +881,46 @@ MonoBehaviour:
   ClickMessage: 
   methodeNameWithoutTarget: 
   methodeNameWithTarget: OnClickLane
+--- !u!1 &480319586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 480319587}
+  - 114: {fileID: 480319588}
+  m_Layer: 0
+  m_Name: ServerPlayer0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &480319587
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 480319586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1342850947}
+  m_RootOrder: 0
+--- !u!114 &480319588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 480319586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8152337bae00ff043b1c745c194acdac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Port: 25000
 --- !u!1 &495282802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2299,6 +2339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player0: {fileID: 539245950}
   Player1: {fileID: 139759332}
+  ServerPlayer0: {fileID: 480319588}
+  ServerPlayer1: {fileID: 2074288584}
 --- !u!4 &1342850947
 Transform:
   m_ObjectHideFlags: 0
@@ -2308,7 +2350,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 480319587}
+  - {fileID: 2074288583}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &1396866780
@@ -3128,6 +3172,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
+--- !u!1 &2074288582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2074288583}
+  - 114: {fileID: 2074288584}
+  m_Layer: 0
+  m_Name: ServerPlayer1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074288583
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2074288582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1342850947}
+  m_RootOrder: 1
+--- !u!114 &2074288584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2074288582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8152337bae00ff043b1c745c194acdac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Port: 25001
 --- !u!1 &2086092938
 GameObject:
   m_ObjectHideFlags: 0
