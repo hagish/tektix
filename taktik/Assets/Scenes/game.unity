@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 51112794}
   - 95: {fileID: 51112795}
+  - 114: {fileID: 51112796}
   m_Layer: 0
   m_Name: SpectatorsRock
   m_TagString: Untagged
@@ -345,6 +346,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &51112796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 26994f3247e2d954db2ef87b92f51d2f,
+    type: 2}
+  m_PrefabInternal: {fileID: 199173454}
+  m_GameObject: {fileID: 51112793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &126917129
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +1008,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 262689283}
   - 95: {fileID: 262689284}
+  - 114: {fileID: 262689285}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -1028,6 +1045,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &262689285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 2062887748}
+  m_GameObject: {fileID: 262689282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &306930074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,6 +1633,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 463373795}
   - 95: {fileID: 463373796}
+  - 114: {fileID: 463373797}
   m_Layer: 0
   m_Name: SpectatorsScissor
   m_TagString: Untagged
@@ -1637,6 +1670,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &463373797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c5e489b8b21455c48a1cfaa599c40afe,
+    type: 2}
+  m_PrefabInternal: {fileID: 1760243422}
+  m_GameObject: {fileID: 463373794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &465799991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,6 +1862,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 484942154}
   - 95: {fileID: 484942155}
+  - 114: {fileID: 484942156}
   m_Layer: 0
   m_Name: SpectatorsRock
   m_TagString: Untagged
@@ -1850,6 +1899,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &484942156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 26994f3247e2d954db2ef87b92f51d2f,
+    type: 2}
+  m_PrefabInternal: {fileID: 655961843}
+  m_GameObject: {fileID: 484942153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &506936652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2561,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 600260369}
   - 95: {fileID: 600260370}
+  - 114: {fileID: 600260371}
   m_Layer: 0
   m_Name: SpectatorsRock
   m_TagString: Untagged
@@ -2533,6 +2598,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &600260371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 26994f3247e2d954db2ef87b92f51d2f,
+    type: 2}
+  m_PrefabInternal: {fileID: 192493383}
+  m_GameObject: {fileID: 600260368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &603832285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,6 +2622,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 603832286}
   - 95: {fileID: 603832287}
+  - 114: {fileID: 603832288}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -2578,6 +2659,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &603832288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 154516087}
+  m_GameObject: {fileID: 603832285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &616247060
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,6 +3561,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1022987001}
   - 95: {fileID: 1022987000}
+  - 114: {fileID: 1022987002}
   m_Layer: 0
   m_Name: SpectatorsScissor
   m_TagString: Untagged
@@ -3501,6 +3598,21 @@ Transform:
   - {fileID: 164362260}
   m_Father: {fileID: 1912197583}
   m_RootOrder: 8
+--- !u!114 &1022987002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c5e489b8b21455c48a1cfaa599c40afe,
+    type: 2}
+  m_PrefabInternal: {fileID: 812491060}
+  m_GameObject: {fileID: 1022986999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1001 &1030568985
 Prefab:
   m_ObjectHideFlags: 0
@@ -3795,6 +3907,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1160101133}
   - 95: {fileID: 1160101134}
+  - 114: {fileID: 1160101135}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -3831,6 +3944,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1160101135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1731556116}
+  m_GameObject: {fileID: 1160101132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1001 &1189432432
 Prefab:
   m_ObjectHideFlags: 0
@@ -4071,6 +4199,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1213878962}
   - 95: {fileID: 1213878963}
+  - 114: {fileID: 1213878964}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -4107,6 +4236,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1213878964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1992529993}
+  m_GameObject: {fileID: 1213878961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &1224132448
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,6 +4927,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1366516787}
   - 95: {fileID: 1366516784}
+  - 114: {fileID: 1366516785}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -4806,6 +4951,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1366516785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1892587610}
+  m_GameObject: {fileID: 1366516783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!4 &1366516787
 Transform:
   m_ObjectHideFlags: 0
@@ -7239,6 +7399,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1470337599}
   - 95: {fileID: 1470337600}
+  - 114: {fileID: 1470337601}
   m_Layer: 0
   m_Name: SpectatorsScissor
   m_TagString: Untagged
@@ -7275,6 +7436,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1470337601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c5e489b8b21455c48a1cfaa599c40afe,
+    type: 2}
+  m_PrefabInternal: {fileID: 430955353}
+  m_GameObject: {fileID: 1470337598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &1488015611
 GameObject:
   m_ObjectHideFlags: 0
@@ -7867,6 +8043,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1620349135}
   - 95: {fileID: 1620349136}
+  - 114: {fileID: 1620349137}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -7903,6 +8080,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1620349137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1413026108}
+  m_GameObject: {fileID: 1620349134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &1666678409
 GameObject:
   m_ObjectHideFlags: 0
@@ -9016,6 +9208,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1679396211}
   - 95: {fileID: 1679396212}
+  - 114: {fileID: 1679396213}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -9052,6 +9245,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1679396213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1030568985}
+  m_GameObject: {fileID: 1679396210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &1701585038
 GameObject:
   m_ObjectHideFlags: 0
@@ -9133,6 +9341,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1732381091}
   - 95: {fileID: 1732381092}
+  - 114: {fileID: 1732381093}
   m_Layer: 0
   m_Name: SpectatorsScissor
   m_TagString: Untagged
@@ -9169,6 +9378,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1732381093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: c5e489b8b21455c48a1cfaa599c40afe,
+    type: 2}
+  m_PrefabInternal: {fileID: 1189432432}
+  m_GameObject: {fileID: 1732381090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1001 &1760243422
 Prefab:
   m_ObjectHideFlags: 0
@@ -9222,6 +9446,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1763422893}
   - 95: {fileID: 1763422894}
+  - 114: {fileID: 1763422895}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -9258,6 +9483,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1763422895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1538282037}
+  m_GameObject: {fileID: 1763422892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &1769668867
 GameObject:
   m_ObjectHideFlags: 0
@@ -9737,6 +9977,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1903516246}
   - 95: {fileID: 1903516247}
+  - 114: {fileID: 1903516248}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -9773,6 +10014,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1903516248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1389772275}
+  m_GameObject: {fileID: 1903516245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1001 &1905018227
 Prefab:
   m_ObjectHideFlags: 0
@@ -9939,6 +10195,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1934571134}
   - 95: {fileID: 1934571135}
+  - 114: {fileID: 1934571136}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -9975,6 +10232,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1934571136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 42835226}
+  m_GameObject: {fileID: 1934571133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &1941654825
 GameObject:
   m_ObjectHideFlags: 0
@@ -11499,6 +11771,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2088824041}
   - 95: {fileID: 2088824042}
+  - 114: {fileID: 2088824043}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -11535,6 +11808,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &2088824043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1523123553}
+  m_GameObject: {fileID: 2088824040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60
 --- !u!1 &2107877615
 GameObject:
   m_ObjectHideFlags: 0
@@ -11670,6 +11958,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2138698431}
   - 95: {fileID: 2138698432}
+  - 114: {fileID: 2138698433}
   m_Layer: 0
   m_Name: SpectatorsPaper
   m_TagString: Untagged
@@ -11706,3 +11995,18 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &2138698433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 28e1b9bad5e7370438c74a3ebaa0f4cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1905018227}
+  m_GameObject: {fileID: 2138698430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b754cb3123b0af44b30b6f866443c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialDelay: 1
+  CheerPercentage: .5
+  IdleTimeout: 60

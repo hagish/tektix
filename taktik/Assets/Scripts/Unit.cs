@@ -53,6 +53,7 @@ public class Unit : MonoBehaviour {
     {
         GameObject.Destroy(gameObject);
         if (playSound) AudioController.Instance.PlaySound("kill");
+        UKMessenger.Broadcast("Cheer");
     }
 
     public void GetDamage()
