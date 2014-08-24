@@ -118,6 +118,10 @@ pipe_light2[3] = love.graphics.newImage("pipe_light_yellow_2.png")
 game_state = 0
 candy_wish = nil
 
+particle_red = love.graphics.newImage("particle_red.png")
+particle_blue = love.graphics.newImage("particle_blue.png")
+particle_yellow = love.graphics.newImage("particle_yellow.png")
+
 function love.load()
 	love.math.setRandomSeed(love.timer.getTime())
 	
@@ -335,9 +339,9 @@ function love.draw()
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.75 - 157, love.window.getHeight() * 0.5 - 10)
 		love.graphics.draw(obstacle, obstacle_x2 - 28, obstacle_y2 - 28)
 		
-		love.graphics.setBlendMode('additive')
+		--love.graphics.setBlendMode('additive')
 		love.graphics.draw(particle_hit, 0, 0)
-		love.graphics.setBlendMode('alpha')
+		--love.graphics.setBlendMode('alpha')
 	end
 end
 
@@ -412,13 +416,16 @@ function tubeHit(x, y, c)
 	local sfx_score_yellow = love.audio.newSource("audio/score_yellow.ogg", "static")
 	particle_hit:setPosition(x, y)
 	if c == 0 then
-		particle_hit:setColors(255,0,0,255)
+		particle_hit:setImage(particle_red)
+		--particle_hit:setColors(255,0,0,255)
 		love.audio.play(sfx_score_red)
 	elseif c == 1 then
-		particle_hit:setColors(0,127,255,255)
+		particle_hit:setImage(particle_blue)
+		--particle_hit:setColors(0,127,255,255)
 		love.audio.play(sfx_score_green)
 	elseif c == 2 then
-		particle_hit:setColors(255,255,0,255)
+		particle_hit:setImage(particle_yellow)
+		--article_hit:setColors(255,255,0,255)
 		love.audio.play(sfx_score_yellow)
 	else 
 		particle_hit:setColors(255,255,255,255)
