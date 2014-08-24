@@ -642,6 +642,7 @@ GameObject:
   - 33: {fileID: 395946503}
   - 23: {fileID: 395946502}
   - 95: {fileID: 395946501}
+  - 114: {fileID: 395946505}
   m_Layer: 15
   m_Name: runningSushi
   m_TagString: Untagged
@@ -706,6 +707,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 130527985}
   m_RootOrder: 0
+--- !u!114 &395946505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b7226971cb9732d43b9539bab872ecb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 680325274}
+  m_GameObject: {fileID: 395946500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c598ef0d8a8140b030534102ad889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimSpeed: 1
+  GamePlaySpeed: .200000003
 --- !u!1 &405965319
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,6 +2193,7 @@ GameObject:
   - 33: {fileID: 1015441253}
   - 23: {fileID: 1015441252}
   - 95: {fileID: 1015441251}
+  - 114: {fileID: 1015441255}
   m_Layer: 15
   m_Name: runningSushi
   m_TagString: Untagged
@@ -2242,6 +2258,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1846440296}
   m_RootOrder: 0
+--- !u!114 &1015441255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b7226971cb9732d43b9539bab872ecb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1206412999}
+  m_GameObject: {fileID: 1015441250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c598ef0d8a8140b030534102ad889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimSpeed: 1
+  GamePlaySpeed: .200000003
 --- !u!1 &1063360961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2995,7 +3025,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .701960802, g: .701960802, b: .701960802, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
