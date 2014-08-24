@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     public Vector3 SpawnVelocity;
     public Vector3 SpawnRotation;
     public int InitialPieces = 3;
+    public Unit.UnitType? PreferredType;
+    public float Difficulty = 1;
 
     void Start()
     {
@@ -85,5 +87,10 @@ public class Player : MonoBehaviour {
         {
             Selection.transform.position = selectedUnitPoolSlot.transform.position;
         }
+    }
+
+    public void SetPreferredType(int type)
+    {
+        PreferredType = (Unit.UnitType)type;
     }
 }

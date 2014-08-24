@@ -5,6 +5,8 @@ using UnityEditor;
 [CustomEditor(typeof(Network))]
 public class NetworkInspector : Editor
 {
+    private string text = "";
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -22,6 +24,15 @@ public class NetworkInspector : Editor
             if (GUILayout.Button("Add Piece Player 1"))
             {
                 t.Player1.AddUnitToPool((Unit.UnitType)(int)(Random.Range(0, 3)), false);
+            }
+            text = EditorGUILayout.TextField("Out:", text);
+            if (GUILayout.Button("Send To Player 0"))
+            {
+                t.ServerPlayer0.SendOutgoingMessage(text);
+            }
+            if (GUILayout.Button("Send To Player 1"))
+            {
+                t.ServerPlayer1.SendOutgoingMessage(text);
             }
         }
     }

@@ -22,6 +22,7 @@ public class Server : MonoBehaviour
     private object syncRoot = new object();
     private List<TcpClient> clients = new List<TcpClient>();
     private Queue<string> incommingMessages = new Queue<string>();
+    private Dictionary<TcpClient, Queue<string>> outgoingMessagesMap = new Dictionary<TcpClient, Queue<string>>();
 
     public delegate void ReceiveMessage(string message);
     public event ReceiveMessage EvReceiveMessage;
@@ -77,6 +78,7 @@ public class Server : MonoBehaviour
             lock (syncRoot)
             {
                 clients.Add(client);
+                outgoingMessagesMap[client] = new Queue<string>();
             }
             
             ++clientsConnected;
@@ -86,6 +88,7 @@ public class Server : MonoBehaviour
 
     private void HandleClientComm(object client)
     {
+        UTF8Encoding encoder = new UTF8Encoding();
         TcpClient tcpClient = (TcpClient)client;
         NetworkStream clientStream = tcpClient.GetStream();
 
@@ -94,34 +97,50 @@ public class Server : MonoBehaviour
 
         while (!shutdown)
         {
-            bytesRead = 0;
-
-            try
+            if (clientStream.DataAvailable)
             {
-                //blocks until a client sends a message
-                bytesRead = clientStream.Read(message, 0, 4096);
-            }
-            catch
-            {
-                //a socket error has occured
-                break;
+                bytesRead = 0;
+
+                try
+                {
+                    //blocks until a client sends a message
+                    bytesRead = clientStream.Read(message, 0, 4096);
+                }
+                catch
+                {
+                    //a socket error has occured
+                    break;
+                }
+
+                if (bytesRead == 0)
+                {
+                    //the client has disconnected from the server
+                    break;
+                }
+
+                //message has successfully been received
+                var str = encoder.GetString(message, 0, bytesRead);
+                Debug.Log(str);
+
+                lock (syncRoot)
+                {
+                    incommingMessages.Enqueue(str);
+                }
             }
 
-            if (bytesRead == 0)
-            {
-                //the client has disconnected from the server
-                break;
-            }
-
-            //message has successfully been received
-            UTF8Encoding encoder = new UTF8Encoding();
-           
-            var str = encoder.GetString(message, 0, bytesRead);
-            Debug.Log(str);
+            Thread.Sleep(10);
 
             lock (syncRoot)
             {
-                incommingMessages.Enqueue(str);
+                if (outgoingMessagesMap.ContainsKey(tcpClient))
+                {
+                    var q = outgoingMessagesMap[tcpClient];
+                    while(q.Count > 0 && clientStream.CanWrite)
+                    {
+                        var buf = encoder.GetBytes(q.Dequeue());
+                        clientStream.Write(buf, 0, buf.Length);
+                    }
+                }
             }
         }
 
@@ -130,6 +149,7 @@ public class Server : MonoBehaviour
         lock (syncRoot)
         {
             clients.Remove(tcpClient);
+            outgoingMessagesMap.Remove(tcpClient);
         }
 
         --clientsConnected;
@@ -148,4 +168,15 @@ public class Server : MonoBehaviour
             }
         }
 	}
+
+    public void SendOutgoingMessage(string message)
+    {
+        lock (syncRoot)
+        {
+            foreach (var it in outgoingMessagesMap)
+            {
+                it.Value.Enqueue(message + "\n");
+            }
+        }
+    }
 }

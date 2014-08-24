@@ -9,6 +9,13 @@ public class Network : UKUnitySingletonManuallyCreated<Network> {
     public Server ServerPlayer0;
     public Server ServerPlayer1;
 
+    public float SendTimeout = 1f;
+
+    void Start()
+    {
+        InvokeRepeating("SendStatusToAll", SendTimeout, SendTimeout);
+    }
+
     void OnEnable()
     {
         ServerPlayer0.EvReceiveMessage += ServerPlayer0_EvReceiveMessage;
@@ -70,8 +77,30 @@ public class Network : UKUnitySingletonManuallyCreated<Network> {
 	}
 	*/
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    void SendStatusToAll()
+    {
+        JSONObject p0 = CreateJsonStatus(Player0, Player1);
+        ServerPlayer0.SendOutgoingMessage(p0.ToString());
+
+        JSONObject p1 = CreateJsonStatus(Player1, Player0);
+        ServerPlayer1.SendOutgoingMessage(p1.ToString());
+    }
+
+    private JSONObject CreateJsonStatus(Player playerSelf, Player playerOther)
+    {
+        var j = new JSONObject();
+
+        j.Add("id", playerSelf.Id);
+        // score self
+        j.Add("self", playerSelf.Score);
+        // score other
+        j.Add("other", playerOther.Score);
+        // preferred color
+        if (playerSelf.PreferredType.HasValue) j.Add("wish", (int)playerSelf.PreferredType.Value);
+        // difficulty
+        j.Add("diff", playerSelf.Difficulty);
+
+        return j;
+    }
 }
