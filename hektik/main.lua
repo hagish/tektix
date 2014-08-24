@@ -6,24 +6,34 @@ function StartClient(player)
 	Server.host, Server.port = "192.168.2.123", 25000 + player
 	Server.socket = require("socket")
 	Server.tcp = assert(Server.socket.tcp())
-	Server.tcp:settimeout(1)
+	Server.tcp:settimeout(0)
 	Server.tcp:connect(Server.host, Server.port)
 end
 
 function SendMessage(msg)
-	Server.tcp:send(msg)
+	if Server.tcp then
+		Server.tcp:send(msg)
+	end
 end
 
 function UpdateClient()
-	while true do
-		local s, status, partial = Server.tcp:receive()
-		print(s or partial)
-		if status == "closed" then break end
+	if Server.tcp then
+		--while true do
+			local msg, status, partial = Server.tcp:receive("*l")
+			if msg then
+				if onServerReceive then
+					onServerReceive(json.decode(msg))
+				end
+			end
+			--if status == "closed" then break end
+		--end
 	end
 end
 
 function QuitClient()
-	Server.tcp:close()
+	if Server.tcp then
+		Server.tcp:close()
+	end
 end
 
 function CreatePhysicsRect(x, y, width, height)
@@ -63,7 +73,7 @@ playerCapLeft = 65
 playerCapRight = 735
 
 -- sprites
-candy_green = love.graphics.newImage("candy_green_800.png")
+candy_green = love.graphics.newImage("candy_blue_800.png")
 candy_red = love.graphics.newImage("candy_red_800.png")
 candy_yellow = love.graphics.newImage("candy_yellow_800.png")
 background = love.graphics.newImage("background_800.png")
@@ -76,6 +86,8 @@ running_sushi:setWrap("repeat", "repeat")
 running_sushi_x = 0
 obstacle = love.graphics.newImage("obstacle.png")
 obstacle_rail = love.graphics.newImage("obstacle_rail.png")
+pipe_cover = love.graphics.newImage("pipe_cover.png")
+
 obstacle_x = love.window.getWidth() * 0.25
 obstacle_y = love.window.getHeight() * 0.3
 obstacleObject = nil
@@ -85,7 +97,7 @@ obstacle_y2 = love.window.getHeight() * 0.5
 obstacleObject2 = nil
 
 pipe_red = love.graphics.newImage("pipe_red.png")
-pipe_green = love.graphics.newImage("pipe_green.png")
+pipe_green = love.graphics.newImage("pipe_blue.png")
 pipe_yellow = love.graphics.newImage("pipe_yellow.png")
 
 pipe_light = {}
@@ -93,14 +105,13 @@ pipe_light[1] = love.graphics.newImage("pipe_light_red.png")
 pipe_light[2] = love.graphics.newImage("pipe_light_green.png")
 pipe_light[3] = love.graphics.newImage("pipe_light_yellow.png")
 
-pipe_light_timer = {}
-pipe_light_timer[1] = nil
-pipe_light_timer[2] = nil
-pipe_light_timer[3] = nil
-
-pipe_cover = love.graphics.newImage("pipe_cover.png")
+pipe_light2 = {}
+pipe_light2[1] = love.graphics.newImage("pipe_light_red_2.png")
+pipe_light2[2] = love.graphics.newImage("pipe_light_blue_2.png")
+pipe_light2[3] = love.graphics.newImage("pipe_light_yellow_2.png")
 
 game_state = 0
+candy_wish = nil
 
 function love.load()
 	tubeCapClose = {}
@@ -152,12 +163,12 @@ function love.update(dt)
 
 	elseif game_state == 1 then
 		world:update(dt)
+		UpdateClient()
 		running_sushi_x = running_sushi_x + dt
 		obstacle_x = love.window.getWidth() * 0.25 + math.sin(love.timer.getTime()) * 145
 		obstacle_x2 = love.window.getWidth() * 0.75 + math.cos(love.timer.getTime()) * 145
 		obstacleObject.body:setPosition(obstacle_x, obstacle_y)
 		obstacleObject2.body:setPosition(obstacle_x2, obstacle_y2)
-		--UpdateClient()
 
 		if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
 			player.body:setLinearVelocity(-1 * playerMoveSpeed, 0)
@@ -189,6 +200,7 @@ function love.update(dt)
 		for i = 1, box_count do
 			if box[i] then
 				local x, y = box[i].body:getPosition()
+
 				if box[i].bomb and box[i].bomb < love.timer.getTime() - 2 then
 					box[i].destroy = true
 				end
@@ -274,12 +286,11 @@ function love.draw()
 		love.graphics.draw(pipe_green, 320, 0)
 		love.graphics.draw(pipe_yellow, 520, 0)
 
-		for i = 1, 3 do
-			if pipe_light_timer[i] then
-				love.graphics.draw(pipe_light[i], love.window.getWidth() * 0.25 * i - 55, 14)
-				if pipe_light_timer[i] < love.timer.getTime() - 1 then
-					pipe_light_timer[i] = nil
-				end
+		if candy_wish then
+			if math.floor(love.timer.getTime()) % 2 == 0 then
+				--love.graphics.draw(pipe_light[(candy_wish + 1)], love.window.getWidth() * 0.25 * (candy_wish + 1) - 55, 14)
+			else
+				love.graphics.draw(pipe_light2[(candy_wish + 1)], love.window.getWidth() * 0.25 * (candy_wish + 1) - 64, 6)
 			end
 		end
 
@@ -321,7 +332,6 @@ function beginContact(a, b, coll)
 		if a:getUserData() == "Tube" .. (i - 1) then
 			if b:getUserData() % 3 == (i - 1) then
 				SendMessage(json.encode({res = (i - 1)}))
-				pipe_light_timer[i] = love.timer.getTime()
 			else
 				tubeCapClose[i] = love.timer.getTime()
 			end
@@ -351,6 +361,10 @@ function beginContact(a, b, coll)
 			box[b:getUserData()].bomb = love.timer.getTime()
 		end
 	end
+end
+
+function onServerReceive(data)
+	candy_wish = data.wish
 end
 
 function love.quit()
