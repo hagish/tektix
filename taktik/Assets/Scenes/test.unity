@@ -112,7 +112,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 163623830}
   - 65: {fileID: 163623831}
-  - 114: {fileID: 163623832}
   - 114: {fileID: 163623833}
   m_Layer: 14
   m_Name: detectOther
@@ -146,18 +145,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.80999994, y: 1.94000006, z: 5.23000002}
   m_Center: {x: .0637149811, y: .439999998, z: -1.67999995}
---- !u!114 &163623832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400008, guid: aa748b722c01bf44abffa06ca7429ad6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1109881637}
-  m_GameObject: {fileID: 163623829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e01a8385b4674a148bdd7b7e3689441, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &163623833
 MonoBehaviour:
   m_ObjectHideFlags: 0

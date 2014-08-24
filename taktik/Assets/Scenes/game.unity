@@ -173,8 +173,8 @@ RectTransform:
   m_RootOrder: 8
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -56, y: 112}
-  m_SizeDelta: {x: 94, y: 48}
+  m_AnchoredPosition: {x: -56, y: 132}
+  m_SizeDelta: {x: 94, y: 61}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &34854558
 MonoBehaviour:
@@ -335,6 +335,7 @@ MonoBehaviour:
   SpawnRotation: {x: 0, y: 180, z: 0}
   InitialPieces: 5
   Difficulty: 1
+  SlotAddTimeout: 4
 --- !u!1 &193012520
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!4 &193012522
 Transform:
@@ -452,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &216465611
 BoxCollider:
@@ -463,8 +466,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.69000006, y: .159999996, z: 6.03000021}
-  m_Center: {x: -.213194847, y: 0, z: -.330000013}
+  m_Size: {x: 7.96999979, y: .159999996, z: 6.03000021}
+  m_Center: {x: -1.83000004, y: 0, z: -.330000013}
 --- !u!114 &216465612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 4
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &278344062
 BoxCollider:
@@ -537,8 +541,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.76000023, y: .200000003, z: 6.0999999}
-  m_Center: {x: -.213194847, y: 0, z: .959999979}
+  m_Size: {x: 7.3499999, y: .200000003, z: 6.0999999}
+  m_Center: {x: -1.47000003, y: 0, z: .959999979}
 --- !u!114 &278344063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 3
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &306930077
 BoxCollider:
@@ -870,6 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &421473425
 BoxCollider:
@@ -997,6 +1003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &472761733
 BoxCollider:
@@ -1167,6 +1174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &506936655
 BoxCollider:
@@ -1229,6 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!4 &511682345
 Transform:
@@ -1371,6 +1380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 4
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &516395637
 BoxCollider:
@@ -1382,8 +1392,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.69000006, y: .159999996, z: 6.03000021}
-  m_Center: {x: -.213194847, y: 0, z: -.330000013}
+  m_Size: {x: 8.26000023, y: .159999996, z: 6.03000021}
+  m_Center: {x: 1.58000004, y: 0, z: -.330000013}
 --- !u!114 &516395638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1453,6 +1463,7 @@ MonoBehaviour:
   SpawnRotation: {x: 0, y: 0, z: 0}
   InitialPieces: 5
   Difficulty: 1
+  SlotAddTimeout: 4
 --- !u!1 &547490281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,6 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 3
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &589668794
 BoxCollider:
@@ -1885,8 +1897,8 @@ RectTransform:
   m_RootOrder: 7
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -56, y: 64}
-  m_SizeDelta: {x: 94, y: 48}
+  m_AnchoredPosition: {x: -56, y: 71}
+  m_SizeDelta: {x: 94, y: 61}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &718259620
 MonoBehaviour:
@@ -2011,6 +2023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &744193056
 BoxCollider:
@@ -2151,6 +2164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &964547145
 BoxCollider:
@@ -2305,8 +2319,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 54, y: -50}
-  m_SizeDelta: {x: 85, y: 54}
+  m_AnchoredPosition: {x: 54, y: -56}
+  m_SizeDelta: {x: 85, y: 67}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1063360963
 MonoBehaviour:
@@ -2626,8 +2640,8 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 54, y: -102}
-  m_SizeDelta: {x: 85, y: 50}
+  m_AnchoredPosition: {x: 54, y: -121}
+  m_SizeDelta: {x: 85, y: 62}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &1206412999
 Prefab:
@@ -2733,8 +2747,8 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 54, y: -153}
-  m_SizeDelta: {x: 85, y: 51}
+  m_AnchoredPosition: {x: 54, y: -184}
+  m_SizeDelta: {x: 85, y: 63}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1224132450
 MonoBehaviour:
@@ -3650,6 +3664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &1578783670
 BoxCollider:
@@ -3661,8 +3676,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.76000023, y: .200000003, z: 6.0999999}
-  m_Center: {x: -.213194847, y: 0, z: .959999979}
+  m_Size: {x: 7.0999999, y: .200000003, z: 6.0999999}
+  m_Center: {x: .920000017, y: 0, z: .959999979}
 --- !u!114 &1578783671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3921,6 +3936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!4 &1826356047
 Transform:
@@ -3997,8 +4013,8 @@ RectTransform:
   m_RootOrder: 9
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -56, y: 161}
-  m_SizeDelta: {x: 94, y: 48}
+  m_AnchoredPosition: {x: -56, y: 195}
+  m_SizeDelta: {x: 94, y: 61}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1840197313
 MonoBehaviour:
@@ -4151,6 +4167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &1911465506
 BoxCollider:
@@ -4300,6 +4317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &2014648421
 BoxCollider:

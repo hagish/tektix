@@ -21,9 +21,4 @@ public class EditorSceneSwitcher : MonoBehaviour {
         EditorApplication.OpenScene("Assets/Scenes/test.unity");
     }
 
-    [MenuItem("Scenes/lobby")]
-    static void Open3()
-    {
-        EditorApplication.OpenScene("Assets/Scenes/lobby.unity");
-    }
 }
