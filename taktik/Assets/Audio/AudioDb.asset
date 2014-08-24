@@ -11,7 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8fca985e8a3ff4aa63743f9e50c856, type: 3}
   m_Name: AudioDb
   m_EditorClassIdentifier: 
-  Musics: []
+  Musics:
+  - Name: main
+    Clip: {fileID: 8300000, guid: 8c5e88c1c55b08e4abe70ba5bc1489a5, type: 3}
+    Volume: 1
   Sounds:
   - Name: click
     Clip: {fileID: 8300000, guid: 18c67e4be52a5ff44830f3a601cf1e0d, type: 3}

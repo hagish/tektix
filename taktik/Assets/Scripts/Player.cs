@@ -22,6 +22,11 @@ public class Player : MonoBehaviour {
         {
             AddUnitToPool((Unit.UnitType)(int)(Random.Range(0,3)), false);
         }
+
+        foreach(var ps in Selection.gameObject.EnumComponentsDeep<ParticleSystem>())
+        {
+            ps.Simulate(5f);
+        }
     }
 
     public void AddUnitToPool(Unit.UnitType type, bool playSound)
@@ -43,13 +48,14 @@ public class Player : MonoBehaviour {
 
     void OnClickPoolSlot(GameObject target)
     {
-        selectedUnitPoolSlot = target.GetComponent<Slot>();        
+        //Debug.Log("OnClickPoolSlot", gameObject);
+        selectedUnitPoolSlot = target.FindComponentUpwards<Slot>();
         AudioController.Instance.PlaySound("click");
     }
 
     void OnClickLane(GameObject target)
     {
-        Slot selectedLane = target.GetComponent<Slot>();
+        Slot selectedLane = target.FindComponentUpwards<Slot>();
 
         if (selectedUnitPoolSlot != null && !selectedUnitPoolSlot.IsFree && selectedLane != null && selectedLane.IsFree)
         {
@@ -57,13 +63,13 @@ public class Player : MonoBehaviour {
             {
                 var unit = selectedUnitPoolSlot.Unit;
                 selectedUnitPoolSlot.Unit = null;
+                selectedUnitPoolSlot = null;
                 selectedLane.LastAddTime = Time.time;
                 unit.transform.position = selectedLane.transform.position;
                 unit.gameObject.AddComponent<UnitMovement>().Velocity = SpawnVelocity;
                 unit.transform.rotation = Quaternion.Euler(SpawnRotation);
                 unit.PlayerId = Id;
                 unit.BroadcastMessage("StopBlinking");
-
                 AudioController.Instance.PlaySound("click");
 
                 UpdateBlinking();
@@ -87,10 +93,13 @@ public class Player : MonoBehaviour {
     void Update()
     {
         var active = selectedUnitPoolSlot != null && !selectedUnitPoolSlot.IsFree;
-        Selection.SetActive(active);
         if (active)
         {
             Selection.transform.position = selectedUnitPoolSlot.transform.position;
+        }
+        else
+        {
+            Selection.transform.position = new Vector3(10000f, 10000f, 10000f);
         }
     }
 
