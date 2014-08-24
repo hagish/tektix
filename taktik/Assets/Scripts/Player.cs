@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
             var unit = Spawner.Instance.Spawn(type);
             Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
             UnitPool.AddUnitAnywhere(unit);
+            unit.transform.rotation = Quaternion.Euler(SpawnRotation);
 
             if (playSound) AudioController.Instance.PlaySound("new_item");
         }
