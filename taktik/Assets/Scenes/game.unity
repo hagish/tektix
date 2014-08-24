@@ -333,7 +333,7 @@ MonoBehaviour:
   Selection: {fileID: 495282802}
   SpawnVelocity: {x: 0, y: 0, z: -1}
   SpawnRotation: {x: 0, y: 180, z: 0}
-  InitialPieces: 5
+  InitialPieces: 2
   Difficulty: 1
   SlotAddTimeout: 4
 --- !u!1 &193012520
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   Selection: {fileID: 512242563}
   SpawnVelocity: {x: 0, y: 0, z: 1}
   SpawnRotation: {x: 0, y: 0, z: 0}
-  InitialPieces: 5
+  InitialPieces: 2
   Difficulty: 1
   SlotAddTimeout: 4
 --- !u!1 &547490281

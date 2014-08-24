@@ -249,7 +249,7 @@ MonoBehaviour:
   RotationSpeed: 80
   PlayerId: 0
   Type: 2
-  Lives: 2
+  Lives: 100000
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
