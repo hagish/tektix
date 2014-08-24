@@ -72,6 +72,10 @@ floorHeight = 75
 playerCapLeft = 65
 playerCapRight = 735
 
+-- font
+font1 = love.graphics.newFont("test.ttf", 36)
+font2 = love.graphics.newFont("test.ttf", 20)
+
 -- audio mixer
 -- goes from 0 to 1
 MXVolume = 0.3
@@ -87,6 +91,10 @@ candy_yellow = love.graphics.newImage("candy_yellow_800.png")
 background = love.graphics.newImage("background_800.png")
 character_top = love.graphics.newImage("character_top_800.png")
 character_bottom = love.graphics.newImage("character_bottom_800.png")
+character_top_white = love.graphics.newImage("character_top_white.png")
+character_bottom_white = love.graphics.newImage("character_bottom_white.png")
+character_top_black = love.graphics.newImage("character_top_black.png")
+character_bottom_black = love.graphics.newImage("character_bottom_black.png")
 floor = love.graphics.newImage("floor_800.png")
 running_sushi_quad = love.graphics.newQuad(0, 0, 800, 60, 63, 60)
 running_sushi = love.graphics.newImage("running_sushi.png")
@@ -95,6 +103,7 @@ running_sushi_x = 0
 obstacle = love.graphics.newImage("obstacle.png")
 obstacle_rail = love.graphics.newImage("obstacle_rail.png")
 pipe_cover = love.graphics.newImage("pipe_cover.png")
+score = love.graphics.newImage("score.png")
 
 obstacle_x = love.window.getWidth() * 0.25
 obstacle_y = love.window.getHeight() * 0.3
@@ -120,6 +129,9 @@ pipe_light2[3] = love.graphics.newImage("pipe_light_yellow_2.png")
 
 game_state = 0
 candy_wish = nil
+player_selection = 0
+player1_score = 0
+player2_score = 0
 
 particle_red = love.graphics.newImage("particle_red_2.png")
 particle_blue = love.graphics.newImage("particle_blue_2.png")
@@ -192,8 +204,8 @@ function love.update(dt)
 		world:update(dt)
 		UpdateClient()
 		running_sushi_x = running_sushi_x + dt
-		obstacle_x = love.window.getWidth() * 0.25 + math.sin(love.timer.getTime()) * 145
-		obstacle_x2 = love.window.getWidth() * 0.75 + math.cos(love.timer.getTime()) * 145
+		obstacle_x = love.window.getWidth() * 0.25 + math.sin(love.timer.getTime() * 2) * 145
+		obstacle_x2 = love.window.getWidth() * 0.75 + math.cos(love.timer.getTime() * 2) * 145
 		obstacleObject.body:setPosition(obstacle_x, obstacle_y)
 		obstacleObject2.body:setPosition(obstacle_x2, obstacle_y2)
 
@@ -270,8 +282,9 @@ end
 
 function love.draw()
 	if game_state == 0 then
-		love.graphics.print("Player 1 (Press 1)", 8, 8)
-		love.graphics.print("Player 2 (Press 2)", 8, 32)
+		love.graphics.setFont(font2)
+		love.graphics.print("Player 1  Press 1", 8, 8)
+		love.graphics.print("Player 2  Press 2", 8, 32)
 	elseif game_state == 1 then
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(background)
@@ -322,9 +335,7 @@ function love.draw()
 		love.graphics.draw(pipe_yellow, 520, 0)
 
 		if candy_wish then
-			if math.floor(love.timer.getTime()) % 2 == 0 then
-				--love.graphics.draw(pipe_light[(candy_wish + 1)], love.window.getWidth() * 0.25 * (candy_wish + 1) - 55, 14)
-			else
+			if math.floor(love.timer.getTime() * 2) % 2 == 0 then
 				love.graphics.draw(pipe_light2[(candy_wish + 1)], love.window.getWidth() * 0.25 * (candy_wish + 1) - 64, 6)
 			end
 			
@@ -354,31 +365,62 @@ function love.draw()
 
 		local x, y = player.body:getPosition()
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw(character_top, x, y, 0, 1, 1, playerWidth / 2, playerHeight / 2)
+		if player_selection == 0 then
+			love.graphics.draw(character_top_white, x, y, 0, 1, 1, playerWidth / 2, playerHeight / 2)
+		else
+			love.graphics.draw(character_top_black, x, y, 0, 1, 1, playerWidth / 2, playerHeight / 2)
+		end
 
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(floor, 0, love.window.getHeight() - floorHeight)
 		
 		local h = love.window.getHeight() - carSpawnHeight
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw(character_bottom, x, h, 0, 1, 1, playerWidth / 2, 0)
+		if player_selection == 0 then
+			love.graphics.draw(character_bottom_white, x, h, 0, 1, 1, playerWidth / 2, 0)
+		else
+			love.graphics.draw(character_bottom_black, x, h, 0, 1, 1, playerWidth / 2, 0)
+		end
 
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.25 - 157, love.window.getHeight() * 0.3 - 10)
-		love.graphics.draw(obstacle, obstacle_x - 28, obstacle_y - 28)
+		love.graphics.draw(obstacle, obstacle_x, obstacle_y, math.sin(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
 
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.75 - 157, love.window.getHeight() * 0.5 - 10)
-		love.graphics.draw(obstacle, obstacle_x2 - 28, obstacle_y2 - 28)
-		
+		love.graphics.draw(obstacle, obstacle_x2, obstacle_y2, math.cos(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
 
+		--love.graphics.setBlendMode('additive')
+		love.graphics.draw(particle_hit, 0, 0)
+
+		love.graphics.setBlendMode('alpha')
+
+		love.graphics.draw(score, love.window.getWidth() - 83, 0)
+
+		if player_selection == 0 then
+			love.graphics.setColor(255, 255, 255)
+		else
+			love.graphics.setColor(0, 0, 0)
+		end
+		love.graphics.setFont(font1)
+		love.graphics.print(player1_score, love.window.getWidth() - 70, 6)
+
+		if player_selection == 0 then
+			love.graphics.setColor(0, 0, 0)
+		else
+			love.graphics.setColor(255, 255, 255)
+		end
+		love.graphics.setFont(font2)
+		love.graphics.print(player2_score, love.window.getWidth() - 24, 14)
 	end
 end
 
 function love.keypressed(key)
 	if game_state == 0 then
 		if key == "1" then
+			player_selection = 0
 			StartClient(0)
 			game_state = 1
 		elseif key == "2" then
+			player_selection = 1
 			StartClient(1)
 			game_state = 1
 		end
@@ -436,6 +478,8 @@ end
 
 function onServerReceive(data)
 	candy_wish = data.wish
+	player1_score = data.self
+	player2_score = data.other
 end
 
 function tubeHit(x, y, c)

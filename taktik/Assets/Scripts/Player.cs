@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
         }
 
         var unit = Spawner.Instance.Spawn(type, Id);
-        Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
+        //Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
         UnitPool.AddUnitAnywhere(unit);
         unit.transform.rotation = Quaternion.Euler(SpawnRotation);
 
