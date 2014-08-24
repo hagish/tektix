@@ -1,4 +1,5 @@
 json = require('json')
+require('lib/postshader')
 
 Server = {}
 
@@ -134,6 +135,8 @@ candy_wish = nil
 player_selection = 0
 player1_score = 0
 player2_score = 0
+chromatic = nil
+chromatic_strength = 0.25
 
 particle_red = love.graphics.newImage("particle_red_2.png")
 particle_blue = love.graphics.newImage("particle_blue_2.png")
@@ -267,7 +270,7 @@ function love.update(dt)
 
 		for i = 1, 3 do
 			if tubeCapClose[i] then
-				if tubeCapClose[i] > love.timer.getTime() - 2 then
+				if tubeCapClose[i] > love.timer.getTime() - 5 then
 					tube[i][4].body:setActive(true)
 				else
 					tube[i][4].body:setActive(false)
@@ -283,6 +286,8 @@ function love.update(dt)
 end
 
 function love.draw()
+	love.postshader.setBuffer("render")
+
 	if game_state == 0 then
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.setFont(font3)
@@ -417,6 +422,21 @@ function love.draw()
 		love.graphics.setFont(font2)
 		love.graphics.print(player2_score, love.window.getWidth() - 24, 14)
 	end
+
+	if chromatic then
+		local colorAberration1 = math.sin(love.timer.getTime() * 20.0) * (chromatic_strength - (love.timer.getTime() - chromatic)) * 12.0
+		local colorAberration2 = math.cos(love.timer.getTime() * 20.0) * (chromatic_strength - (love.timer.getTime() - chromatic)) * 12.0
+
+		love.postshader.addEffect("blur", 1.0, 1.0)
+		love.postshader.addEffect("chromatic", colorAberration1, colorAberration2, colorAberration2, -colorAberration1, colorAberration1, -colorAberration2)
+
+		if (love.timer.getTime() - chromatic) >= chromatic_strength then
+			chromatic = nil
+		end
+	end
+
+	love.postshader.addEffect("scanlines", 2)
+	love.postshader.draw()
 end
 
 function love.keypressed(key)
@@ -490,6 +510,7 @@ function beginContact(a, b, coll)
 			box[b:getUserData()].bomb = love.timer.getTime()
 		end
 		playRandomWallHit()
+		chromatic = love.timer.getTime()
 	end
 end
 
