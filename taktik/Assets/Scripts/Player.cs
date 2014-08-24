@@ -16,11 +16,11 @@ public class Player : MonoBehaviour {
     {
         for (int i = 0; i < 3; ++i)
         {
-            AddUnitToPool((Unit.UnitType)(int)(Random.Range(0,3)));
+            AddUnitToPool((Unit.UnitType)(int)(Random.Range(0,3)), false);
         }
     }
 
-    public void AddUnitToPool(Unit.UnitType type)
+    public void AddUnitToPool(Unit.UnitType type, bool playSound)
     {
         if (UnitPool.HasFreeSlots)
         {
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
             Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
             UnitPool.AddUnitAnywhere(unit);
 
-            AudioController.Instance.PlaySound("new_item");
+            if (playSound) AudioController.Instance.PlaySound("new_item");
         }
         else
         {

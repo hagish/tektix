@@ -48,11 +48,11 @@ public class Network : MonoBehaviour {
         {
             if (playerId == 0)
             {
-                Player0.AddUnitToPool(t.Value);
+                Player0.AddUnitToPool(t.Value, true);
             }
             else if (playerId == 1)
             {
-                Player1.AddUnitToPool(t.Value);
+                Player1.AddUnitToPool(t.Value, true);
             }
         }
     }
