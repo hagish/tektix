@@ -130,6 +130,10 @@ player_selection = 0
 player1_score = 0
 player2_score = 0
 
+particle_red = love.graphics.newImage("particle_red.png")
+particle_blue = love.graphics.newImage("particle_blue.png")
+particle_yellow = love.graphics.newImage("particle_yellow.png")
+
 function love.load()
 	love.math.setRandomSeed(love.timer.getTime())
 	
@@ -276,8 +280,8 @@ end
 function love.draw()
 	if game_state == 0 then
 		love.graphics.setFont(font2)
-		love.graphics.print("Player 1 (Press 1)", 8, 8)
-		love.graphics.print("Player 2 (Press 2)", 8, 32)
+		love.graphics.print("Player 1  Press 1", 8, 8)
+		love.graphics.print("Player 2  Press 2", 8, 32)
 	elseif game_state == 1 then
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(background)
@@ -349,13 +353,14 @@ function love.draw()
 		end
 
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.25 - 157, love.window.getHeight() * 0.3 - 10)
-		love.graphics.draw(obstacle, obstacle_x - 28, obstacle_y - 28)
+		love.graphics.draw(obstacle, obstacle_x, obstacle_y, math.sin(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
 
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.75 - 157, love.window.getHeight() * 0.5 - 10)
-		love.graphics.draw(obstacle, obstacle_x2 - 28, obstacle_y2 - 28)
+		love.graphics.draw(obstacle, obstacle_x2, obstacle_y2, math.cos(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
 		
-		love.graphics.setBlendMode('additive')
+		--love.graphics.setBlendMode('additive')
 		love.graphics.draw(particle_hit, 0, 0)
+
 		love.graphics.setBlendMode('alpha')
 
 		love.graphics.draw(score, love.window.getWidth() - 83, 0)
@@ -366,7 +371,7 @@ function love.draw()
 			love.graphics.setColor(0, 0, 0)
 		end
 		love.graphics.setFont(font1)
-		love.graphics.print(player1_score, love.window.getWidth() - 56, 0)
+		love.graphics.print(player1_score, love.window.getWidth() - 70, 6)
 
 		if player_selection == 0 then
 			love.graphics.setColor(0, 0, 0)
@@ -374,7 +379,7 @@ function love.draw()
 			love.graphics.setColor(255, 255, 255)
 		end
 		love.graphics.setFont(font2)
-		love.graphics.print(player2_score, love.window.getWidth() - 20, 8)
+		love.graphics.print(player2_score, love.window.getWidth() - 24, 14)
 	end
 end
 
@@ -453,13 +458,16 @@ function tubeHit(x, y, c)
 	local sfx_score_yellow = love.audio.newSource("audio/score_yellow.ogg", "static")
 	particle_hit:setPosition(x, y)
 	if c == 0 then
-		particle_hit:setColors(255,0,0,255)
+		particle_hit:setImage(particle_red)
+		--particle_hit:setColors(255,0,0,255)
 		love.audio.play(sfx_score_red)
 	elseif c == 1 then
-		particle_hit:setColors(0,127,255,255)
+		particle_hit:setImage(particle_blue)
+		--particle_hit:setColors(0,127,255,255)
 		love.audio.play(sfx_score_green)
 	elseif c == 2 then
-		particle_hit:setColors(255,255,0,255)
+		particle_hit:setImage(particle_yellow)
+		--article_hit:setColors(255,255,0,255)
 		love.audio.play(sfx_score_yellow)
 	else 
 		particle_hit:setColors(255,255,255,255)
