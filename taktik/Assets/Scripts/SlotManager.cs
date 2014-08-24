@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class SlotManager : MonoBehaviour {
     public int PlayerId;
     public List<Slot> Slots;
+    private int nextAddOrder = 0;
 
     public bool HasFreeSlots
     {
@@ -28,6 +30,8 @@ public class SlotManager : MonoBehaviour {
             if (slot.IsFree)
             {
                 slot.AddUnit(unit);
+                slot.AddOrder = nextAddOrder;
+                ++nextAddOrder;
                 return;
             }
         }
@@ -40,6 +44,8 @@ public class SlotManager : MonoBehaviour {
             if (slot.IsFree && slot.LaneId == laneId)
             {
                 slot.AddUnit(unit);
+                slot.AddOrder = nextAddOrder;
+                ++nextAddOrder;
                 return;
             }
         }
@@ -60,4 +66,18 @@ public class SlotManager : MonoBehaviour {
         }
     }
 
+    public Unit OldestUnit()
+    {
+        var slot = Slots.OrderBy(it => it.AddOrder).FirstOrDefault();
+        if (slot != null) return slot.Unit;
+        else return null;
+    }
+
+    public void DestroyOldestUnit()
+    {
+        var slot = Slots.OrderBy(it => it.AddOrder).First();
+        Unit u = slot.Unit;
+        slot.Unit = null;
+        u.Kill(false);
+    }
 }

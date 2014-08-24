@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Slot : MonoBehaviour {
     public int LaneId;
-
     public Unit Unit;
+
+    public int AddOrder;
 
     public bool IsFree {
         get

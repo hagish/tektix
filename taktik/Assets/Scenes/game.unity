@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!4 &193012522
 Transform:
   m_ObjectHideFlags: 0
@@ -268,6 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &216465611
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -341,6 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 4
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &278344062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -414,6 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 3
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &306930077
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -668,6 +672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &421473425
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -794,6 +799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &472761733
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -963,6 +969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &506936655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1024,6 +1031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!4 &511682345
 Transform:
   m_ObjectHideFlags: 0
@@ -1165,6 +1173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 4
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &516395637
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1412,6 +1421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 3
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &589668794
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1623,6 +1633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &744193056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1696,6 +1707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &964547145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2623,6 +2635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &1578783670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2835,6 +2848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!4 &1826356047
 Transform:
   m_ObjectHideFlags: 0
@@ -2948,6 +2962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &1911465506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3096,6 +3111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  AddOrder: 0
 --- !u!65 &2014648421
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -13,6 +13,16 @@ public class NetworkInspector : Editor
         {
             Network t = (Network)target;
 
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Add Piece Player 0"))
+            {
+                t.Player0.AddUnitToPool((Unit.UnitType)(int)(Random.Range(0, 3)), false);
+            }
+            if (GUILayout.Button("Add Piece Player 1"))
+            {
+                t.Player1.AddUnitToPool((Unit.UnitType)(int)(Random.Range(0, 3)), false);
+            }
         }
     }
 }
