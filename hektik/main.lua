@@ -68,7 +68,7 @@ boxMovementVelocity = 200
 candyRadius = 22
 playerSpawnHeight = 34
 candySpawnHeight = 104
-carSpawnHeight = 60
+carSpawnHeight = 55
 floorHeight = 75
 playerCapLeft = 65
 playerCapRight = 735
@@ -76,7 +76,7 @@ playerCapRight = 735
 -- font
 font1 = love.graphics.newFont("test.ttf", 36)
 font2 = love.graphics.newFont("test.ttf", 20)
-font3 = love.graphics.newFont("marl.ttf", 20)
+font3 = love.graphics.newFont("vgasys.fon")
 
 -- audio mixer
 -- goes from 0 to 1
@@ -98,6 +98,12 @@ character_bottom_white = love.graphics.newImage("character_bottom_white.png")
 character_top_black = love.graphics.newImage("character_top_black.png")
 character_bottom_black = love.graphics.newImage("character_bottom_black.png")
 floor = love.graphics.newImage("floor_800.png")
+startscreen = love.graphics.newImage("startscreen.png")
+startscreen_controls = love.graphics.newImage("startscreen_controls.png")
+startscreen_ip = love.graphics.newImage("startscreen_ip.png")
+startscreen_team = love.graphics.newImage("startscreen_team.png")
+startscreen_black = love.graphics.newImage("startscreen_black.png")
+startscreen_white = love.graphics.newImage("startscreen_white.png")
 running_sushi_quad = love.graphics.newQuad(0, 0, 800, 60, 63, 60)
 running_sushi = love.graphics.newImage("running_sushi.png")
 running_sushi:setWrap("repeat", "repeat")
@@ -107,6 +113,7 @@ obstacle_rail = love.graphics.newImage("obstacle_rail.png")
 pipe_cover = love.graphics.newImage("pipe_cover.png")
 score = love.graphics.newImage("score.png")
 server_ip = "192.168.2.123"
+shader_on = true
 
 obstacle_x = love.window.getWidth() * 0.3
 obstacle_y = love.window.getHeight() * 0.3
@@ -137,6 +144,7 @@ player1_score = 0
 player2_score = 0
 chromatic = nil
 chromatic_strength = 0.25
+chromatic_str_real = 6
 
 particle_red = love.graphics.newImage("particle_red_2.png")
 particle_blue = love.graphics.newImage("particle_blue_2.png")
@@ -286,16 +294,32 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.postshader.setBuffer("render")
+	if shader_on then
+		love.postshader.setBuffer("render")
+	end
 
 	if game_state == 0 then
 		love.graphics.setColor(255, 255, 255)
+		love.graphics.draw(startscreen)
+		love.graphics.draw(startscreen_controls, 32, 440)
+		love.graphics.draw(startscreen_ip, 288, 440)
+		love.graphics.draw(startscreen_team, 540, 440)
+		love.graphics.draw(startscreen_black, 568, 468)
+		love.graphics.draw(startscreen_white, 568, 512)
+		love.graphics.setFont(font2)
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.print("Move", 140, 478)
+		love.graphics.print("Push Candy", 140, 526)
+		love.graphics.print("Enter IP", 315, 470)
 		love.graphics.setFont(font3)
-		love.graphics.print("Player 1 (Press Q)", 8, 8)
-		love.graphics.print("Player 2 (Press W)", 8, 32)
-		love.graphics.print("Server IP: " .. server_ip, 8, 56)
+		love.graphics.print(server_ip, 350, 522)
 		if math.floor(love.timer.getTime() * 2) % 2 == 0 then
-			love.graphics.rectangle("fill", string.len(server_ip) * 8 + 80, 56, 2, 16)
+			love.graphics.rectangle("fill", string.len(server_ip) * 7 + 352, 508, 2, 16)
+		end
+		if shader_on then
+			love.graphics.print("Shader: On (Press S)", 8, 16)
+		else
+			love.graphics.print("Shader: Off (Press S)", 8, 16)
 		end
 	elseif game_state == 1 then
 		love.graphics.setColor(255, 255, 255)
@@ -423,20 +447,22 @@ function love.draw()
 		love.graphics.print(player2_score, love.window.getWidth() - 24, 14)
 	end
 
-	if chromatic then
-		local colorAberration1 = math.sin(love.timer.getTime() * 20.0) * (chromatic_strength - (love.timer.getTime() - chromatic)) * 12.0
-		local colorAberration2 = math.cos(love.timer.getTime() * 20.0) * (chromatic_strength - (love.timer.getTime() - chromatic)) * 12.0
+	if shader_on then
+		if chromatic then
+			local colorAberration1 = math.sin(love.timer.getTime() * 20.0) * (chromatic_strength - (love.timer.getTime() - chromatic)) * chromatic_str_real
+			local colorAberration2 = math.cos(love.timer.getTime() * 20.0) * (chromatic_strength - (love.timer.getTime() - chromatic)) * chromatic_str_real
 
-		love.postshader.addEffect("blur", 1.0, 1.0)
-		love.postshader.addEffect("chromatic", colorAberration1, colorAberration2, colorAberration2, -colorAberration1, colorAberration1, -colorAberration2)
+			love.postshader.addEffect("blur", 1.0, 1.0)
+			love.postshader.addEffect("chromatic", colorAberration1, colorAberration2, colorAberration2, -colorAberration1, colorAberration1, -colorAberration2)
 
-		if (love.timer.getTime() - chromatic) >= chromatic_strength then
-			chromatic = nil
+			if (love.timer.getTime() - chromatic) >= chromatic_strength then
+				chromatic = nil
+			end
 		end
-	end
 
-	love.postshader.addEffect("scanlines", 2)
-	love.postshader.draw()
+		love.postshader.addEffect("scanlines", 2)
+		love.postshader.draw()
+	end
 end
 
 function love.keypressed(key)
@@ -453,6 +479,8 @@ function love.keypressed(key)
 			player_selection = 1
 			StartClient(1)
 			game_state = 1
+		elseif key == "s" then
+			shader_on = not shader_on
 		elseif string.len(key) == 1 then
 			server_ip = server_ip .. key
 		end
@@ -461,6 +489,22 @@ function love.keypressed(key)
 			QuitClient()
 			game_state = 0
 		end
+	end
+end
+
+function love.mousepressed(x, y, key)
+	if game_state == 0 then
+		if x >= 568 and x <= 568 + 216 and y >= 468 and y <= 468 + 43 then
+			player_selection = 1
+			StartClient(1)
+			game_state = 1
+		elseif x >= 568 and x <= 568 + 216 and y >= 512 and y <= 512 + 43 then
+			player_selection = 0
+			StartClient(0)
+			game_state = 1
+		end
+		--love.graphics.draw(startscreen_black, 568, 468)
+		--love.graphics.draw(startscreen_white, 568, 512)
 	end
 end
 
@@ -506,11 +550,12 @@ function beginContact(a, b, coll)
 	if collWall then
 		if type(a:getUserData()) == "number" and not box[a:getUserData()].bomb and type(b:getUserData()) ~= "number" then
 			box[a:getUserData()].bomb = love.timer.getTime()
+			chromatic = love.timer.getTime()
 		elseif type(b:getUserData()) == "number" and not box[b:getUserData()].bomb and type(a:getUserData()) ~= "number" then
 			box[b:getUserData()].bomb = love.timer.getTime()
+			chromatic = love.timer.getTime()
 		end
 		playRandomWallHit()
-		chromatic = love.timer.getTime()
 	end
 end
 
