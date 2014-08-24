@@ -121,9 +121,9 @@ pipe_light2[3] = love.graphics.newImage("pipe_light_yellow_2.png")
 game_state = 0
 candy_wish = nil
 
-particle_red = love.graphics.newImage("particle_red.png")
-particle_blue = love.graphics.newImage("particle_blue.png")
-particle_yellow = love.graphics.newImage("particle_yellow.png")
+particle_red = love.graphics.newImage("particle_red_2.png")
+particle_blue = love.graphics.newImage("particle_blue_2.png")
+particle_yellow = love.graphics.newImage("particle_yellow_2.png")
 
 function love.load()
 	love.math.setRandomSeed(love.timer.getTime())
