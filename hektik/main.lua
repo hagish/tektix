@@ -116,9 +116,13 @@ candy_wish = nil
 function love.load()
 	love.math.setRandomSeed(love.timer.getTime())
 	
-	mx_machine_ambience = love.audio.newSource("audio/machine_ambience.ogg", "static")
+	mx_machine_ambience = love.audio.newSource("audio/machine_ambience.ogg", "stream")
 	love.audio.play(mx_machine_ambience)
 	mx_machine_ambience:setLooping(true)
+	
+	mx_music_main_theme = love.audio.newSource("audio/music_main_theme.ogg", "stream")
+	love.audio.play(mx_music_main_theme)
+	mx_music_main_theme:setLooping(true)
 	
 	tubeCapClose = {}
 	for i = 1, 3 do
