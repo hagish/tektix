@@ -316,6 +316,10 @@ function love.draw()
 				love.graphics.draw(image, x, y, r, 1, 1, candyRadius + 2, candyRadius + 3)
 			end
 		end
+		
+		--love.graphics.setBlendMode('additive')
+		love.graphics.draw(particle_hit, 0, 0)
+		--love.graphics.setBlendMode('alpha')
 
 		-- Tubes
 		love.graphics.setColor(255, 255, 255)
@@ -324,10 +328,6 @@ function love.draw()
 				love.graphics.draw(pipe_cover, love.window.getWidth() * 0.25 * i - 79, 70)
 			end
 		end
-		
-		--love.graphics.setBlendMode('additive')
-		love.graphics.draw(particle_hit, 0, 0)
-		--love.graphics.setBlendMode('alpha')
 
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(pipe_red, 120, 0)
@@ -387,11 +387,6 @@ function love.draw()
 
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.75 - 157, love.window.getHeight() * 0.5 - 10)
 		love.graphics.draw(obstacle, obstacle_x2, obstacle_y2, math.cos(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
-
-		--love.graphics.setBlendMode('additive')
-		love.graphics.draw(particle_hit, 0, 0)
-
-		love.graphics.setBlendMode('alpha')
 
 		love.graphics.draw(score, love.window.getWidth() - 83, 0)
 
