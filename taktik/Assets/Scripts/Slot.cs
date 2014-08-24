@@ -5,6 +5,8 @@ public class Slot : MonoBehaviour {
     public int LaneId;
     public Unit Unit;
 
+    public float LastAddTime = 0f;
+
     public int AddOrder;
 
     public bool IsFree {
@@ -19,6 +21,7 @@ public class Slot : MonoBehaviour {
         Unit = unit;
         unit.gameObject.transform.parent = transform;
         unit.gameObject.transform.localPosition = Vector3.zero;
+        LastAddTime = Time.time;
     }
 
     public void Clear()

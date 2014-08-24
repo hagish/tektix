@@ -45,17 +45,25 @@ public class GameCore : UKUnitySingletonManuallyCreated<GameCore> {
             (a == Unit.UnitType.SCISSOR && b == Unit.UnitType.PAPER);
     }
 
+    public static bool IgnoreEachOther(Unit unit0, Unit unit1)
+    {
+        if (unit0 == null && unit1 == null) return true;
+        if (unit0 == null && unit1 != null) return true;
+        if (unit0 != null && unit1 == null) return true;
+        var t0 = unit0.Type;
+        var t1 = unit1.Type;
+        if (t0 == t1) return true;
+        return false;
+    }
+
     // returns which unit dies, true -> dead or damage
     public static UKTuple<bool,bool> CalculateFightDamage(Unit unit0, Unit unit1)
     {
-        // empty
-        if (unit0 == null && unit1 == null) return new UKTuple<bool,bool>(false, false);
-        if (unit0 == null && unit1 != null) return new UKTuple<bool, bool>(false, false);
-        if (unit0 != null && unit1 == null) return new UKTuple<bool, bool>(false, false);
+        if (IgnoreEachOther(unit0, unit1)) new UKTuple<bool, bool>(false, false);
+
         // totally complex mechanic
         var t0 = unit0.Type;
         var t1 = unit1.Type;
-        if (t0 == t1) return new UKTuple<bool, bool>(false, false);
         if (Beats(t0, t1)) return new UKTuple<bool, bool>(false, true);
         if (Beats(t1, t0)) return new UKTuple<bool, bool>(true, false);
         return new UKTuple<bool, bool>(false, false);

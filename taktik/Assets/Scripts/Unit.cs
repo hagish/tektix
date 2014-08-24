@@ -4,7 +4,7 @@ using System.Collections;
 public class Unit : MonoBehaviour {
     public enum UnitType {
         SCISSOR = 0,    // red
-        ROCK = 1,   // green
+        ROCK = 1,   // blue
         PAPER = 2,  // yellow
     }
 
@@ -19,6 +19,11 @@ public class Unit : MonoBehaviour {
 
     public int Lives = 2;
 
+    void StopRotating()
+    {
+        IsRotated = false;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         Unit otherUnit = other.gameObject.GetComponent<Unit>();
@@ -31,6 +36,7 @@ public class Unit : MonoBehaviour {
                 if (result.a) Kill(true);
                 // but if the other one loses i get damage
                 else if (result.b) GetDamage();
+                Invoke("StopRotating", 0.1f);
             }
         }
 
@@ -63,5 +69,15 @@ public class Unit : MonoBehaviour {
     {
         var target = IsRotated ? LocalRotation : Vector3.zero;
         RotationRoot.localRotation = Quaternion.RotateTowards(RotationRoot.localRotation, Quaternion.Euler(target), Time.deltaTime * RotationSpeed);
+    }
+
+    void OtherDetectedOn()
+    {
+        IsRotated = true;
+    }
+
+    void OtherDetectedOff()
+    {
+        IsRotated = false;
     }
 }

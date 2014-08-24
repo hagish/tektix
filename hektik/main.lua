@@ -81,6 +81,9 @@ font3 = love.graphics.newFont("marl.ttf", 20)
 -- goes from 0 to 1
 MXVolume = 0.3
 AmbienceVolume = 0.6
+RequestVolume = 1
+requestPause = 1.77
+lastRequest = 0
 
 -- sprites
 candy_green = love.graphics.newImage("candy_blue_800.png")
@@ -132,9 +135,9 @@ player_selection = 0
 player1_score = 0
 player2_score = 0
 
-particle_red = love.graphics.newImage("particle_red.png")
-particle_blue = love.graphics.newImage("particle_blue.png")
-particle_yellow = love.graphics.newImage("particle_yellow.png")
+particle_red = love.graphics.newImage("particle_red_2.png")
+particle_blue = love.graphics.newImage("particle_blue_2.png")
+particle_yellow = love.graphics.newImage("particle_yellow_2.png")
 
 function love.load()
 	love.math.setRandomSeed(love.timer.getTime())
@@ -320,6 +323,10 @@ function love.draw()
 				love.graphics.draw(image, x, y, r, 1, 1, candyRadius + 2, candyRadius + 3)
 			end
 		end
+		
+		--love.graphics.setBlendMode('additive')
+		love.graphics.draw(particle_hit, 0, 0)
+		--love.graphics.setBlendMode('alpha')
 
 		love.graphics.setBlendMode('additive')
 		love.graphics.draw(particle_hit, 0, 0)
@@ -342,6 +349,29 @@ function love.draw()
 			if math.floor(love.timer.getTime() * 2) % 2 == 0 then
 				love.graphics.draw(pipe_light2[(candy_wish + 1)], love.window.getWidth() * 0.25 * (candy_wish + 1) - 64, 6)
 			end
+			
+			timeSinceLastRequest = love.timer.getTime() - lastRequest
+			
+			if timeSinceLastRequest >= requestPause then
+				if candy_wish == 0 then
+					lastRequest = love.timer.getTime()
+					local sfx_request_red = love.audio.newSource("audio/request_red.ogg", "static")
+					love.audio.play(sfx_request_red)
+					sfx_request_red:setVolume(RequestVolume)
+				elseif candy_wish == 1 then
+					lastRequest = love.timer.getTime()
+					local sfx_request_green = love.audio.newSource("audio/request_green.ogg", "static")
+					love.audio.play(sfx_request_green)
+					sfx_request_green:setVolume(RequestVolume)
+				elseif candy_wish == 2 then
+					lastRequest = love.timer.getTime()
+					local sfx_request_yellow = love.audio.newSource("audio/request_yellow.ogg", "static")
+					love.audio.play(sfx_request_yellow)
+					sfx_request_yellow:setVolume(RequestVolume)
+				else
+				end
+			end
+			
 		end
 
 		local x, y = player.body:getPosition()

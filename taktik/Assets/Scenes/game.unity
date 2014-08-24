@@ -173,8 +173,8 @@ RectTransform:
   m_RootOrder: 8
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -56, y: 112}
-  m_SizeDelta: {x: 94, y: 48}
+  m_AnchoredPosition: {x: -56, y: 132}
+  m_SizeDelta: {x: 94, y: 61}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &34854558
 MonoBehaviour:
@@ -195,7 +195,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: .501960814, g: .501960814, b: .501960814, a: .501960814}
+    m_NormalColor: {r: .0941176489, g: .337254912, b: .737254918, a: .501960814}
     m_HighlightedColor: {r: .501960814, g: .501960814, b: .501960814, a: .698039234}
     m_PressedColor: {r: .345098048, g: .345098048, b: .345098048, a: .698039234}
     m_DisabledColor: {r: .250980407, g: .250980407, b: .250980407, a: .501960814}
@@ -333,8 +333,9 @@ MonoBehaviour:
   Selection: {fileID: 495282802}
   SpawnVelocity: {x: 0, y: 0, z: -1}
   SpawnRotation: {x: 0, y: 180, z: 0}
-  InitialPieces: 3
+  InitialPieces: 5
   Difficulty: 1
+  SlotAddTimeout: 4
 --- !u!1 &193012520
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!4 &193012522
 Transform:
@@ -374,7 +376,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 193012520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.32420015, y: -1.36860001, z: -11.3669996}
+  m_LocalPosition: {x: 8.0401001, y: -1.36860001, z: -11.3669996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1952502341}
@@ -452,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &216465611
 BoxCollider:
@@ -463,8 +466,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.23000002, y: 1, z: 4.82999992}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 7.96999979, y: .159999996, z: 6.03000021}
+  m_Center: {x: -1.83000004, y: 0, z: -.330000013}
 --- !u!114 &216465612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 4
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &278344062
 BoxCollider:
@@ -537,8 +541,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.44999981, y: 1, z: 5.11000013}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 7.3499999, y: .200000003, z: 6.0999999}
+  m_Center: {x: -1.47000003, y: 0, z: .959999979}
 --- !u!114 &278344063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 3
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &306930077
 BoxCollider:
@@ -611,8 +616,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.23000002, y: 1, z: 4.82999992}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 4.69000006, y: .159999996, z: 6.03000021}
+  m_Center: {x: -.213194847, y: 0, z: -.330000013}
 --- !u!114 &306930078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,6 +647,7 @@ GameObject:
   - 33: {fileID: 395946503}
   - 23: {fileID: 395946502}
   - 95: {fileID: 395946501}
+  - 114: {fileID: 395946505}
   m_Layer: 15
   m_Name: runningSushi
   m_TagString: Untagged
@@ -706,6 +712,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 130527985}
   m_RootOrder: 0
+--- !u!114 &395946505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b7226971cb9732d43b9539bab872ecb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 680325274}
+  m_GameObject: {fileID: 395946500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c598ef0d8a8140b030534102ad889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimSpeed: 1
+  GamePlaySpeed: .200000003
 --- !u!1 &405965319
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,6 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &421473425
 BoxCollider:
@@ -866,8 +887,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.44999981, y: 1, z: 5.11000013}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 4.76000023, y: .200000003, z: 6.0999999}
+  m_Center: {x: -.213194847, y: 0, z: .959999979}
 --- !u!114 &421473426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,6 +1003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &472761733
 BoxCollider:
@@ -1134,7 +1156,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 506936652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.30509996, y: -1.36860001, z: 11.3850002}
+  m_LocalPosition: {x: -7.87370014, y: -1.36860001, z: 11.3850002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1571335540}
@@ -1152,6 +1174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &506936655
 BoxCollider:
@@ -1214,6 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!4 &511682345
 Transform:
@@ -1237,8 +1261,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.23000002, y: 1, z: 4.82999992}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 4.69000006, y: .159999996, z: 6.03000021}
+  m_Center: {x: -.213194847, y: 0, z: -.330000013}
 --- !u!114 &511682347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1356,6 +1380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 4
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &516395637
 BoxCollider:
@@ -1367,8 +1392,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.23000002, y: 1, z: 4.82999992}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 8.26000023, y: .159999996, z: 6.03000021}
+  m_Center: {x: 1.58000004, y: 0, z: -.330000013}
 --- !u!114 &516395638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,8 +1461,9 @@ MonoBehaviour:
   Selection: {fileID: 512242563}
   SpawnVelocity: {x: 0, y: 0, z: 1}
   SpawnRotation: {x: 0, y: 0, z: 0}
-  InitialPieces: 3
+  InitialPieces: 5
   Difficulty: 1
+  SlotAddTimeout: 4
 --- !u!1 &547490281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1506,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: a4cd3b81e3f7fbc47be2308601c9b44f, type: 2}
+  - {fileID: 2100000, guid: 081dbf23d0121d14282731934265e2f9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1668,6 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 3
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &589668794
 BoxCollider:
@@ -1679,8 +1706,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.44999981, y: 1, z: 5.11000013}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 4.76000023, y: .200000003, z: 6.0999999}
+  m_Center: {x: -.213194847, y: 0, z: .959999979}
 --- !u!114 &589668795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1870,8 +1897,8 @@ RectTransform:
   m_RootOrder: 7
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -56, y: 64}
-  m_SizeDelta: {x: 94, y: 48}
+  m_AnchoredPosition: {x: -56, y: 71}
+  m_SizeDelta: {x: 94, y: 61}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &718259620
 MonoBehaviour:
@@ -1892,7 +1919,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: .501960814, g: .501960814, b: .501960814, a: .501960814}
+    m_NormalColor: {r: .960784316, g: .580392182, b: .137254909, a: .501960814}
     m_HighlightedColor: {r: .501960814, g: .501960814, b: .501960814, a: .698039234}
     m_PressedColor: {r: .345098048, g: .345098048, b: .345098048, a: .698039234}
     m_DisabledColor: {r: .250980407, g: .250980407, b: .250980407, a: .501960814}
@@ -1996,6 +2023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &744193056
 BoxCollider:
@@ -2118,7 +2146,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 964547142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.38570023, y: -1.36860001, z: 11.3850002}
+  m_LocalPosition: {x: 8.07979965, y: -1.36860001, z: 11.3850002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1571335540}
@@ -2136,6 +2164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &964547145
 BoxCollider:
@@ -2178,6 +2207,7 @@ GameObject:
   - 33: {fileID: 1015441253}
   - 23: {fileID: 1015441252}
   - 95: {fileID: 1015441251}
+  - 114: {fileID: 1015441255}
   m_Layer: 15
   m_Name: runningSushi
   m_TagString: Untagged
@@ -2242,6 +2272,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1846440296}
   m_RootOrder: 0
+--- !u!114 &1015441255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b7226971cb9732d43b9539bab872ecb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1206412999}
+  m_GameObject: {fileID: 1015441250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c598ef0d8a8140b030534102ad889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimSpeed: 1
+  GamePlaySpeed: .200000003
 --- !u!1 &1063360961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,8 +2319,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 54, y: -50}
-  m_SizeDelta: {x: 85, y: 54}
+  m_AnchoredPosition: {x: 54, y: -56}
+  m_SizeDelta: {x: 85, y: 67}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1063360963
 MonoBehaviour:
@@ -2297,7 +2341,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: .501960814, g: .501960814, b: .501960814, a: .501960814}
+    m_NormalColor: {r: .694117665, g: .0980392173, b: 0, a: .501960814}
     m_HighlightedColor: {r: .501960814, g: .501960814, b: .501960814, a: .698039234}
     m_PressedColor: {r: .345098048, g: .345098048, b: .345098048, a: .698039234}
     m_DisabledColor: {r: .250980407, g: .250980407, b: .250980407, a: .501960814}
@@ -2520,7 +2564,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: .501960814, g: .501960814, b: .501960814, a: .501960814}
+    m_NormalColor: {r: .0941176489, g: .337254912, b: .737254918, a: .501960814}
     m_HighlightedColor: {r: .501960814, g: .501960814, b: .501960814, a: .698039234}
     m_PressedColor: {r: .345098048, g: .345098048, b: .345098048, a: .698039234}
     m_DisabledColor: {r: .250980407, g: .250980407, b: .250980407, a: .501960814}
@@ -2596,8 +2640,8 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 54, y: -102}
-  m_SizeDelta: {x: 85, y: 50}
+  m_AnchoredPosition: {x: 54, y: -121}
+  m_SizeDelta: {x: 85, y: 62}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &1206412999
 Prefab:
@@ -2703,8 +2747,8 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: .5}
   m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 54, y: -153}
-  m_SizeDelta: {x: 85, y: 51}
+  m_AnchoredPosition: {x: 54, y: -184}
+  m_SizeDelta: {x: 85, y: 63}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1224132450
 MonoBehaviour:
@@ -2725,7 +2769,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: .501960814, g: .501960814, b: .501960814, a: .501960814}
+    m_NormalColor: {r: .960784316, g: .580392182, b: .137254909, a: .501960814}
     m_HighlightedColor: {r: .501960814, g: .501960814, b: .501960814, a: .698039234}
     m_PressedColor: {r: .345098048, g: .345098048, b: .345098048, a: .698039234}
     m_DisabledColor: {r: .250980407, g: .250980407, b: .250980407, a: .501960814}
@@ -2995,7 +3039,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .701960802, g: .701960802, b: .701960802, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3620,6 +3664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &1578783670
 BoxCollider:
@@ -3631,8 +3676,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.44999981, y: 1, z: 5.11000013}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 7.0999999, y: .200000003, z: 6.0999999}
+  m_Center: {x: .920000017, y: 0, z: .959999979}
 --- !u!114 &1578783671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3891,6 +3936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 1
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!4 &1826356047
 Transform:
@@ -3914,8 +3960,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.44999981, y: 1, z: 5.11000013}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 4.76000023, y: .200000003, z: 6.0999999}
+  m_Center: {x: -.213194847, y: 0, z: .959999979}
 --- !u!114 &1826356049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3967,8 +4013,8 @@ RectTransform:
   m_RootOrder: 9
   m_AnchorMin: {x: 1, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -56, y: 161}
-  m_SizeDelta: {x: 94, y: 48}
+  m_AnchoredPosition: {x: -56, y: 195}
+  m_SizeDelta: {x: 94, y: 61}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1840197313
 MonoBehaviour:
@@ -3989,7 +4035,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: .501960814, g: .501960814, b: .501960814, a: .501960814}
+    m_NormalColor: {r: .694117665, g: .0980392173, b: 0, a: .501960814}
     m_HighlightedColor: {r: .501960814, g: .501960814, b: .501960814, a: .698039234}
     m_PressedColor: {r: .345098048, g: .345098048, b: .345098048, a: .698039234}
     m_DisabledColor: {r: .250980407, g: .250980407, b: .250980407, a: .501960814}
@@ -4121,6 +4167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 2
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &1911465506
 BoxCollider:
@@ -4132,8 +4179,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.23000002, y: 1, z: 4.82999992}
-  m_Center: {x: -.213194847, y: 0, z: -.00198364258}
+  m_Size: {x: 4.69000006, y: .159999996, z: 6.03000021}
+  m_Center: {x: -.213194847, y: 0, z: -.330000013}
 --- !u!114 &1911465507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4252,7 +4299,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2014648418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.42810011, y: -1.36860001, z: -11.3669996}
+  m_LocalPosition: {x: -8.01840019, y: -1.36860001, z: -11.3669996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1952502341}
@@ -4270,6 +4317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LaneId: 0
   Unit: {fileID: 0}
+  LastAddTime: 0
   AddOrder: 0
 --- !u!65 &2014648421
 BoxCollider:

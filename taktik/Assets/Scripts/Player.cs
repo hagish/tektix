@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     public int InitialPieces = 3;
     public Unit.UnitType? PreferredType;
     public float Difficulty = 1;
+    public float SlotAddTimeout = 1f;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour {
         }
 
         var unit = Spawner.Instance.Spawn(type, Id);
-        Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
+        //Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
         UnitPool.AddUnitAnywhere(unit);
         unit.transform.rotation = Quaternion.Euler(SpawnRotation);
 
@@ -52,17 +53,20 @@ public class Player : MonoBehaviour {
 
         if (selectedUnitPoolSlot != null && !selectedUnitPoolSlot.IsFree && selectedLane != null && selectedLane.IsFree)
         {
-            var unit = selectedUnitPoolSlot.Unit;
-            selectedUnitPoolSlot.Unit = null;
-            //selectedLane.AddUnit(unit);
-            unit.transform.position = selectedLane.transform.position;
-            unit.gameObject.AddComponent<UnitMovement>().Velocity = SpawnVelocity;
-            unit.transform.rotation = Quaternion.Euler(SpawnRotation);
-            unit.PlayerId = Id;
+            if (Time.time - selectedLane.LastAddTime > SlotAddTimeout)
+            {
+                var unit = selectedUnitPoolSlot.Unit;
+                selectedUnitPoolSlot.Unit = null;
+                selectedLane.LastAddTime = Time.time;
+                unit.transform.position = selectedLane.transform.position;
+                unit.gameObject.AddComponent<UnitMovement>().Velocity = SpawnVelocity;
+                unit.transform.rotation = Quaternion.Euler(SpawnRotation);
+                unit.PlayerId = Id;
 
-            AudioController.Instance.PlaySound("click");
+                AudioController.Instance.PlaySound("click");
 
-            UpdateBlinking();
+                UpdateBlinking();
+            }
         }
     }
 
