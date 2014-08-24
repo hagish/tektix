@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 135: {fileID: 13500000}
   - 54: {fileID: 5400000}
+  - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: UnitRock
   m_TagString: Untagged
@@ -233,6 +234,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeOn: 1
   TimeOff: .5
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d5e4aa9969f0142842addd1742b096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player0Material: {fileID: 2100000, guid: 56ebabcf60d698c4081b6ff30e74f025, type: 2}
+  Player1Material: {fileID: 2100000, guid: a42e7d939c2b60844ac4b9a3e138fce9, type: 2}
+  Mount: {fileID: 2300002}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

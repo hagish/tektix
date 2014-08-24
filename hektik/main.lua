@@ -76,6 +76,11 @@ playerCapRight = 735
 font1 = love.graphics.newFont("test.ttf", 36)
 font2 = love.graphics.newFont("test.ttf", 20)
 
+-- audio mixer
+-- goes from 0 to 1
+MXVolume = 0.3
+AmbienceVolume = 0.6
+
 -- sprites
 candy_green = love.graphics.newImage("candy_blue_800.png")
 candy_red = love.graphics.newImage("candy_red_800.png")
@@ -126,11 +131,23 @@ player1_score = 0
 player2_score = 0
 
 function love.load()
+	love.math.setRandomSeed(love.timer.getTime())
+	
+	mx_machine_ambience = love.audio.newSource("audio/machine_ambience.ogg", "stream")
+	love.audio.play(mx_machine_ambience)
+	mx_machine_ambience:setLooping(true)
+	mx_machine_ambience:setVolume(AmbienceVolume)
+	
+	mx_music_main_theme = love.audio.newSource("audio/music_main_theme.ogg", "stream")
+	love.audio.play(mx_music_main_theme)
+	mx_music_main_theme:setLooping(true)
+	mx_music_main_theme:setVolume(MXVolume)
+	
 	tubeCapClose = {}
 	for i = 1, 3 do
 		tubeCapClose[i] = false
 	end
-
+	
 	love.physics.setMeter(64)
 	world = love.physics.newWorld(0, 0, true)
 	world:setCallbacks(beginContact, endContact, preSolve, postSolve)
@@ -246,6 +263,8 @@ function love.update(dt)
 				else
 					tube[i][4].body:setActive(false)
 					tubeCapClose[i] = false
+					local sfx_slot_open = love.audio.newSource("audio/slot_open.ogg", "static")
+					love.audio.play(sfx_slot_open)
 				end
 			end
 		end
@@ -381,9 +400,11 @@ function beginContact(a, b, coll)
 			if b:getUserData() % 3 == (i - 1) then
 				SendMessage(json.encode({res = (i - 1)}))
 				local x, y = tube[i][4].body:getPosition()		
-				shootParticle(x, y, b:getUserData() % 3)
+				tubeHit(x, y, b:getUserData() % 3)
 			else
 				tubeCapClose[i] = love.timer.getTime()
+				local sfx_score_miss = love.audio.newSource("audio/score_miss.ogg", "static")
+				love.audio.play(sfx_score_miss)
 			end
 			box[b:getUserData()].destroy = true
 			collWall = false
@@ -392,8 +413,12 @@ function beginContact(a, b, coll)
 		if b:getUserData() == "Tube" .. (i - 1) then
 			if b:getUserData() % 3 == (i - 1) then
 				SendMessage(json.encode({res = (i - 1)}))
+				local x, y = tube[i][4].body:getPosition()		
+				tubeHit(x, y, b:getUserData() % 3)
 			else
-				tubeCapClose[i] = love.timer.getTime()
+				tubeCapClose[i] = love.timer.getTime()				
+				local sfx_score_miss = love.audio.newSource("audio/score_miss.ogg", "static")		
+				love.audio.play(sfx_score_miss)				
 			end
 			box[a:getUserData()].destroy = true
 			collWall = false
@@ -402,6 +427,8 @@ function beginContact(a, b, coll)
 
 	if a:getUserData() == "Player" or b:getUserData() == "Player" then
 		collWall = false
+		local sfx_bumper_bump = love.audio.newSource("audio/bumper_bump.ogg", "static")
+		love.audio.play(sfx_bumper_bump)	
 	end
 
 	if collWall then
@@ -410,6 +437,7 @@ function beginContact(a, b, coll)
 		elseif type(b:getUserData()) == "number" and not box[b:getUserData()].bomb and type(a:getUserData()) ~= "number" then
 			box[b:getUserData()].bomb = love.timer.getTime()
 		end
+		playRandomWallHit()
 	end
 end
 
@@ -419,18 +447,39 @@ function onServerReceive(data)
 	player2_score = data.other
 end
 
-function shootParticle(x, y, c)
+function tubeHit(x, y, c)
+	local sfx_score_green = love.audio.newSource("audio/score_green.ogg", "static")
+	local sfx_score_red = love.audio.newSource("audio/score_red.ogg", "static")
+	local sfx_score_yellow = love.audio.newSource("audio/score_yellow.ogg", "static")
 	particle_hit:setPosition(x, y)
 	if c == 0 then
 		particle_hit:setColors(255,0,0,255)
+		love.audio.play(sfx_score_red)
 	elseif c == 1 then
 		particle_hit:setColors(0,127,255,255)
+		love.audio.play(sfx_score_green)
 	elseif c == 2 then
 		particle_hit:setColors(255,255,0,255)
+		love.audio.play(sfx_score_yellow)
 	else 
 		particle_hit:setColors(255,255,255,255)
 	end
 	particle_hit:start()
+end
+
+function playRandomWallHit()
+	local sfx_wall_hit_01 = love.audio.newSource("audio/wall_hit_01.ogg", "static")
+	local sfx_wall_hit_02 = love.audio.newSource("audio/wall_hit_02.ogg", "static")
+	local sfx_wall_hit_03 = love.audio.newSource("audio/wall_hit_03.ogg", "static")
+	r = love.math.random(1,3) 
+	if r == 1 then
+		love.audio.play(sfx_wall_hit_01)
+	elseif r == 2 then
+		love.audio.play(sfx_wall_hit_02)
+	elseif r == 3 then
+		love.audio.play(sfx_wall_hit_03)
+	else
+	end
 end
 
 function love.quit()

@@ -12,13 +12,15 @@ public class Spawner : MonoBehaviour {
 
     public List<Unit> Prefabs;
  
-    public Unit Spawn(Unit.UnitType type)
+    public Unit Spawn(Unit.UnitType type, int playerId)
     {
         foreach(var unit in Prefabs)
         {
             if (unit.Type == type)
             {
-                return (GameObject.Instantiate(unit.gameObject) as GameObject).GetComponent<Unit>();
+                Unit u = (GameObject.Instantiate(unit.gameObject) as GameObject).GetComponent<Unit>();
+                u.PlayerId = playerId;
+                return u;
             }
         }
 
