@@ -62,6 +62,7 @@ public class Player : MonoBehaviour {
                 unit.gameObject.AddComponent<UnitMovement>().Velocity = SpawnVelocity;
                 unit.transform.rotation = Quaternion.Euler(SpawnRotation);
                 unit.PlayerId = Id;
+                unit.BroadcastMessage("StopBlinking");
 
                 AudioController.Instance.PlaySound("click");
 
