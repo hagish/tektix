@@ -3,7 +3,7 @@ json = require('json')
 Server = {}
 
 function StartClient(player)
-	Server.host, Server.port = "192.168.2.123", 25000 + player
+	Server.host, Server.port = server_ip, 25000 + player
 	Server.socket = require("socket")
 	Server.tcp = assert(Server.socket.tcp())
 	Server.tcp:settimeout(0)
@@ -75,6 +75,7 @@ playerCapRight = 735
 -- font
 font1 = love.graphics.newFont("test.ttf", 36)
 font2 = love.graphics.newFont("test.ttf", 20)
+font3 = love.graphics.newFont("marl.ttf", 20)
 
 -- audio mixer
 -- goes from 0 to 1
@@ -101,12 +102,13 @@ obstacle = love.graphics.newImage("obstacle.png")
 obstacle_rail = love.graphics.newImage("obstacle_rail.png")
 pipe_cover = love.graphics.newImage("pipe_cover.png")
 score = love.graphics.newImage("score.png")
+server_ip = "192.168.2.123"
 
-obstacle_x = love.window.getWidth() * 0.25
+obstacle_x = love.window.getWidth() * 0.3
 obstacle_y = love.window.getHeight() * 0.3
 obstacleObject = nil
 
-obstacle_x2 = love.window.getWidth() * 0.75
+obstacle_x2 = love.window.getWidth() * 0.7
 obstacle_y2 = love.window.getHeight() * 0.5
 obstacleObject2 = nil
 
@@ -201,8 +203,8 @@ function love.update(dt)
 		world:update(dt)
 		UpdateClient()
 		running_sushi_x = running_sushi_x + dt
-		obstacle_x = love.window.getWidth() * 0.25 + math.sin(love.timer.getTime() * 2) * 145
-		obstacle_x2 = love.window.getWidth() * 0.75 + math.cos(love.timer.getTime() * 2) * 145
+		obstacle_x = love.window.getWidth() * 0.3 + math.sin(love.timer.getTime() * 2) * 145
+		obstacle_x2 = love.window.getWidth() * 0.7 + math.cos(love.timer.getTime() * 2) * 145
 		obstacleObject.body:setPosition(obstacle_x, obstacle_y)
 		obstacleObject2.body:setPosition(obstacle_x2, obstacle_y2)
 
@@ -279,9 +281,14 @@ end
 
 function love.draw()
 	if game_state == 0 then
-		love.graphics.setFont(font2)
-		love.graphics.print("Player 1  Press 1", 8, 8)
-		love.graphics.print("Player 2  Press 2", 8, 32)
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.setFont(font3)
+		love.graphics.print("Player 1 (Press Q)", 8, 8)
+		love.graphics.print("Player 2 (Press W)", 8, 32)
+		love.graphics.print("Server IP: " .. server_ip, 8, 56)
+		if math.floor(love.timer.getTime() * 2) % 2 == 0 then
+			love.graphics.rectangle("fill", string.len(server_ip) * 8 + 80, 56, 2, 16)
+		end
 	elseif game_state == 1 then
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(background)
@@ -314,6 +321,10 @@ function love.draw()
 			end
 		end
 
+		love.graphics.setBlendMode('additive')
+		love.graphics.draw(particle_hit, 0, 0)
+		love.graphics.setBlendMode('alpha')
+
 		-- Tubes
 		love.graphics.setColor(255, 255, 255)
 		for i = 1, 3 do
@@ -321,10 +332,6 @@ function love.draw()
 				love.graphics.draw(pipe_cover, love.window.getWidth() * 0.25 * i - 79, 70)
 			end
 		end
-		
-		--love.graphics.setBlendMode('additive')
-		love.graphics.draw(particle_hit, 0, 0)
-		--love.graphics.setBlendMode('alpha')
 
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(pipe_red, 120, 0)
@@ -356,16 +363,11 @@ function love.draw()
 			love.graphics.draw(character_bottom_black, x, h, 0, 1, 1, playerWidth / 2, 0)
 		end
 
-		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.25 - 157, love.window.getHeight() * 0.3 - 10)
+		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.3 - 157, love.window.getHeight() * 0.3 - 10)
 		love.graphics.draw(obstacle, obstacle_x, obstacle_y, math.sin(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
 
-		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.75 - 157, love.window.getHeight() * 0.5 - 10)
+		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.7 - 157, love.window.getHeight() * 0.5 - 10)
 		love.graphics.draw(obstacle, obstacle_x2, obstacle_y2, math.cos(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
-
-		--love.graphics.setBlendMode('additive')
-		love.graphics.draw(particle_hit, 0, 0)
-
-		love.graphics.setBlendMode('alpha')
 
 		love.graphics.draw(score, love.window.getWidth() - 83, 0)
 
@@ -389,14 +391,25 @@ end
 
 function love.keypressed(key)
 	if game_state == 0 then
-		if key == "1" then
+		if key == "backspace" then
+			server_ip = string.sub(server_ip, 0, string.len(server_ip) - 1)
+		end
+
+		if key == "q" then
 			player_selection = 0
 			StartClient(0)
 			game_state = 1
-		elseif key == "2" then
+		elseif key == "w" then
 			player_selection = 1
 			StartClient(1)
 			game_state = 1
+		elseif string.len(key) == 1 then
+			server_ip = server_ip .. key
+		end
+	elseif game_state == 1 then
+		if key == "escape" then
+			QuitClient()
+			game_state = 0
 		end
 	end
 end
