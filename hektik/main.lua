@@ -321,6 +321,10 @@ function love.draw()
 				love.graphics.draw(pipe_cover, love.window.getWidth() * 0.25 * i - 79, 70)
 			end
 		end
+		
+		--love.graphics.setBlendMode('additive')
+		love.graphics.draw(particle_hit, 0, 0)
+		--love.graphics.setBlendMode('alpha')
 
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.draw(pipe_red, 120, 0)
@@ -357,7 +361,7 @@ function love.draw()
 
 		love.graphics.draw(obstacle_rail, love.window.getWidth() * 0.75 - 157, love.window.getHeight() * 0.5 - 10)
 		love.graphics.draw(obstacle, obstacle_x2, obstacle_y2, math.cos(love.timer.getTime() * 2) * 4, 1, 1, 28, 28)
-		
+
 		--love.graphics.setBlendMode('additive')
 		love.graphics.draw(particle_hit, 0, 0)
 
@@ -456,6 +460,7 @@ function tubeHit(x, y, c)
 	local sfx_score_green = love.audio.newSource("audio/score_green.ogg", "static")
 	local sfx_score_red = love.audio.newSource("audio/score_red.ogg", "static")
 	local sfx_score_yellow = love.audio.newSource("audio/score_yellow.ogg", "static")
+	local y = y - 10
 	particle_hit:setPosition(x, y)
 	if c == 0 then
 		particle_hit:setImage(particle_red)

@@ -12,7 +12,7 @@ GameObject:
   - 135: {fileID: 13500000}
   - 54: {fileID: 5400000}
   - 114: {fileID: 11400006}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: UnitPaper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400002}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - 33: {fileID: 3300002}
   - 23: {fileID: 2300002}
   - 114: {fileID: 11400004}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: mount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400006}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: rotationRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
