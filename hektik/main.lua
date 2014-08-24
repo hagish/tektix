@@ -76,6 +76,9 @@ playerCapRight = 735
 -- goes from 0 to 1
 MXVolume = 0.3
 AmbienceVolume = 0.6
+RequestVolume = 1
+requestPause = 1.77
+lastRequest = 0
 
 -- sprites
 candy_green = love.graphics.newImage("candy_blue_800.png")
@@ -324,6 +327,29 @@ function love.draw()
 			else
 				love.graphics.draw(pipe_light2[(candy_wish + 1)], love.window.getWidth() * 0.25 * (candy_wish + 1) - 64, 6)
 			end
+			
+			timeSinceLastRequest = love.timer.getTime() - lastRequest
+			
+			if timeSinceLastRequest >= requestPause then
+				if candy_wish == 0 then
+					lastRequest = love.timer.getTime()
+					local sfx_request_red = love.audio.newSource("audio/request_red.ogg", "static")
+					love.audio.play(sfx_request_red)
+					sfx_request_red:setVolume(RequestVolume)
+				elseif candy_wish == 1 then
+					lastRequest = love.timer.getTime()
+					local sfx_request_green = love.audio.newSource("audio/request_green.ogg", "static")
+					love.audio.play(sfx_request_green)
+					sfx_request_green:setVolume(RequestVolume)
+				elseif candy_wish == 2 then
+					lastRequest = love.timer.getTime()
+					local sfx_request_yellow = love.audio.newSource("audio/request_yellow.ogg", "static")
+					love.audio.play(sfx_request_yellow)
+					sfx_request_yellow:setVolume(RequestVolume)
+				else
+				end
+			end
+			
 		end
 
 		local x, y = player.body:getPosition()
