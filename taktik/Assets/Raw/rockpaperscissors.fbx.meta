@@ -11,6 +11,9 @@ ModelImporter:
     100010: knight_rck
     100012: knight_scrs
     100014: mount
+    100016: mount_ppr
+    100018: mount_rck
+    100020: mount_scrs
     400000: //RootNode
     400002: paper
     400004: rock
@@ -19,6 +22,9 @@ ModelImporter:
     400010: knight_rck
     400012: knight_scrs
     400014: mount
+    400016: mount_ppr
+    400018: mount_rck
+    400020: mount_scrs
     2300000: //RootNode
     2300002: paper
     2300004: rock
@@ -27,6 +33,9 @@ ModelImporter:
     2300010: knight_rck
     2300012: knight_scrs
     2300014: mount
+    2300016: mount_ppr
+    2300018: mount_rck
+    2300020: mount_scrs
     3300000: //RootNode
     3300002: paper
     3300004: rock
@@ -35,6 +44,9 @@ ModelImporter:
     3300010: knight_rck
     3300012: knight_scrs
     3300014: mount
+    3300016: mount_ppr
+    3300018: mount_rck
+    3300020: mount_scrs
     4300000: paper
     4300002: scissors
     4300004: rock
@@ -42,6 +54,9 @@ ModelImporter:
     4300008: knight_scrs
     4300010: knight_rck
     4300012: knight_ppr
+    4300014: mount_rck
+    4300016: mount_ppr
+    4300018: mount_scrs
     7400000: Take 001
     9500000: //RootNode
   materials:
