@@ -4,7 +4,7 @@ using System.Collections;
 public class Unit : MonoBehaviour {
     public enum UnitType {
         SCISSOR = 0,    // red
-        ROCK = 1,   // green
+        ROCK = 1,   // blue
         PAPER = 2,  // yellow
     }
 
