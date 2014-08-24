@@ -23,8 +23,11 @@ public class GameCore : UKUnitySingletonManuallyCreated<GameCore> {
 
     private void UpdateUI()
     {
-        UIGlue.Instance.Player0Score.text = string.Format("{0:0.} points", Player0.Score);
-        UIGlue.Instance.Player1Score.text = string.Format("{0:0.} points", Player1.Score);
+        int p0 = Player0.Score;
+        int p1 = Player1.Score;
+
+        UIGlue.Instance.Player0Score.text = string.Format("v {0}:{1} ^", p0, p1);
+        UIGlue.Instance.Player1Score.text = string.Format("v {0}:{1} ^", p1, p0);
 
         UIGlue.Instance.Player0Follower.text = string.Format("{0:0.} supporters", Network.Instance.ServerPlayer0.ClientsConnected);
         UIGlue.Instance.Player1Follower.text = string.Format("{0:0.} supporters", Network.Instance.ServerPlayer1.ClientsConnected);

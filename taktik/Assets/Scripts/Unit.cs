@@ -3,10 +3,15 @@ using System.Collections;
 
 public class Unit : MonoBehaviour {
     public enum UnitType {
-        SCISSOR = 0,
-        ROCK = 1,
-        PAPER = 2,
+        SCISSOR = 0,    // red
+        ROCK = 1,   // green
+        PAPER = 2,  // yellow
     }
+
+    public Transform RotationRoot;
+    public bool IsRotated;
+    public Vector3 LocalRotation;
+    public float RotationSpeed;
 
     public int PlayerId;
 
@@ -52,5 +57,11 @@ public class Unit : MonoBehaviour {
         {
             Kill(true);
         }
+    }
+
+    void Update()
+    {
+        var target = IsRotated ? LocalRotation : Vector3.zero;
+        RotationRoot.localRotation = Quaternion.RotateTowards(RotationRoot.localRotation, Quaternion.Euler(target), Time.deltaTime * RotationSpeed);
     }
 }

@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     public Vector3 SpawnVelocity;
     public Vector3 SpawnRotation;
     public int InitialPieces = 3;
+    public Unit.UnitType? PreferredType;
+    public float Difficulty = 1;
 
     void Start()
     {
@@ -23,19 +25,19 @@ public class Player : MonoBehaviour {
 
     public void AddUnitToPool(Unit.UnitType type, bool playSound)
     {
-        if (UnitPool.HasFreeSlots)
+        if (!UnitPool.HasFreeSlots)
         {
-            var unit = Spawner.Instance.Spawn(type);
-            Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
-            UnitPool.AddUnitAnywhere(unit);
-            unit.transform.rotation = Quaternion.Euler(SpawnRotation);
+            UnitPool.DestroyOldestUnit();
+        }
 
-            if (playSound) AudioController.Instance.PlaySound("new_item");
-        }
-        else
-        {
-            Debug.Log("no free index slot in pool -> drop");
-        }
+        var unit = Spawner.Instance.Spawn(type);
+        Debug.Log(string.Format("added unit {0} to pool", unit), gameObject);
+        UnitPool.AddUnitAnywhere(unit);
+        unit.transform.rotation = Quaternion.Euler(SpawnRotation);
+
+        if (playSound) AudioController.Instance.PlaySound("new_item");
+
+        UpdateBlinking();
     }
 
     void OnClickPoolSlot(GameObject target)
@@ -59,6 +61,21 @@ public class Player : MonoBehaviour {
             unit.PlayerId = Id;
 
             AudioController.Instance.PlaySound("click");
+
+            UpdateBlinking();
+        }
+    }
+
+    void UpdateBlinking()
+    {
+        foreach (var slot in UnitPool.Slots)
+        {
+            if (slot.Unit != null) slot.Unit.BroadcastMessage("StopBlinking");
+        } 
+        
+        if (!UnitPool.HasFreeSlots)
+        {
+            UnitPool.OldestUnit().BroadcastMessage("StartBlinking");
         }
     }
 
@@ -70,5 +87,10 @@ public class Player : MonoBehaviour {
         {
             Selection.transform.position = selectedUnitPoolSlot.transform.position;
         }
+    }
+
+    public void SetPreferredType(int type)
+    {
+        PreferredType = (Unit.UnitType)type;
     }
 }
