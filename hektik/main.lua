@@ -72,6 +72,11 @@ floorHeight = 75
 playerCapLeft = 65
 playerCapRight = 735
 
+-- audio mixer
+-- goes from 0 to 1
+MXVolume = 0.3
+AmbienceVolume = 0.6
+
 -- sprites
 candy_green = love.graphics.newImage("candy_blue_800.png")
 candy_red = love.graphics.newImage("candy_red_800.png")
@@ -119,10 +124,12 @@ function love.load()
 	mx_machine_ambience = love.audio.newSource("audio/machine_ambience.ogg", "stream")
 	love.audio.play(mx_machine_ambience)
 	mx_machine_ambience:setLooping(true)
+	mx_machine_ambience:setVolume(AmbienceVolume)
 	
 	mx_music_main_theme = love.audio.newSource("audio/music_main_theme.ogg", "stream")
 	love.audio.play(mx_music_main_theme)
 	mx_music_main_theme:setLooping(true)
+	mx_music_main_theme:setVolume(MXVolume)
 	
 	tubeCapClose = {}
 	for i = 1, 3 do
