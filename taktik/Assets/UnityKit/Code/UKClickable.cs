@@ -14,6 +14,11 @@ public class UKClickable : MonoBehaviour {
 	public string methodeNameWithoutTarget = "OnClick";
 	public string methodeNameWithTarget = "OnClickWithTarget";
 
+    void Start()
+    {
+        if (targetCamera == null) targetCamera = Camera.main;
+    }
+
 	void Update () {
 		if (Input.GetMouseButtonDown(0) || Input.touchCount > 0 ) // check for left-mouse
 		{

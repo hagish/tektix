@@ -48,13 +48,14 @@ public class Player : MonoBehaviour {
 
     void OnClickPoolSlot(GameObject target)
     {
-        selectedUnitPoolSlot = target.GetComponent<Slot>();        
+        //Debug.Log("OnClickPoolSlot", gameObject);
+        selectedUnitPoolSlot = target.FindComponentUpwards<Slot>();
         AudioController.Instance.PlaySound("click");
     }
 
     void OnClickLane(GameObject target)
     {
-        Slot selectedLane = target.GetComponent<Slot>();
+        Slot selectedLane = target.FindComponentUpwards<Slot>();
 
         if (selectedUnitPoolSlot != null && !selectedUnitPoolSlot.IsFree && selectedLane != null && selectedLane.IsFree)
         {
