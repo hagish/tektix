@@ -11,10 +11,11 @@ public class Player : MonoBehaviour {
     public GameObject Selection;
     public Vector3 SpawnVelocity;
     public Vector3 SpawnRotation;
+    public int InitialPieces = 3;
 
     void Start()
     {
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < InitialPieces; ++i)
         {
             AddUnitToPool((Unit.UnitType)(int)(Random.Range(0,3)), false);
         }

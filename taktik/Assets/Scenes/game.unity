@@ -151,6 +151,7 @@ MonoBehaviour:
   Selection: {fileID: 495282802}
   SpawnVelocity: {x: 0, y: 0, z: -1}
   SpawnRotation: {x: 0, y: 180, z: 0}
+  InitialPieces: 3
 --- !u!1 &193012520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,6 +1244,7 @@ MonoBehaviour:
   Selection: {fileID: 512242563}
   SpawnVelocity: {x: 0, y: 0, z: 1}
   SpawnRotation: {x: 0, y: 0, z: 0}
+  InitialPieces: 3
 --- !u!1 &547490281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,7 +2262,7 @@ GameObject:
   - 222: {fileID: 1336511968}
   - 114: {fileID: 1336511967}
   m_Layer: 5
-  m_Name: TimePlayer0
+  m_Name: FollowerPlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2272,15 +2274,15 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1336511965}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -4.37113883e-08}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1237368121}
   m_RootOrder: 2
-  m_AnchorMin: {x: 1, y: .5}
-  m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: -109, y: 9}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -109, y: -30.7999992}
   m_SizeDelta: {x: 194.699997, y: 30}
   m_Pivot: {x: .5, y: .99999994}
 --- !u!114 &1336511967
@@ -2303,7 +2305,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -2371,7 +2373,7 @@ GameObject:
   - 222: {fileID: 1522337508}
   - 114: {fileID: 1522337507}
   m_Layer: 5
-  m_Name: TimePlayer1
+  m_Name: FollowerPlayer0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2383,15 +2385,15 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1522337505}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: -4.37113883e-08}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1237368121}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: .5}
-  m_AnchorMax: {x: 0, y: .5}
-  m_AnchoredPosition: {x: 109.199997, y: 22.1000004}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 103.699997, y: 15}
   m_SizeDelta: {x: 194.700012, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1522337507
@@ -2414,7 +2416,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -3220,8 +3222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player0Score: {fileID: 1242518611}
   Player1Score: {fileID: 564869543}
-  Player0Time: {fileID: 1336511967}
-  Player1Time: {fileID: 1522337507}
+  Player0Follower: {fileID: 1522337507}
+  Player1Follower: {fileID: 1336511967}
 --- !u!4 &2071104666
 Transform:
   m_ObjectHideFlags: 0

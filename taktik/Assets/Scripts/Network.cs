@@ -2,7 +2,7 @@
 using System.Collections;
 using Boomlagoon.JSON;
 
-public class Network : MonoBehaviour {
+public class Network : UKUnitySingletonManuallyCreated<Network> {
     public Player Player0;
     public Player Player1;
 

@@ -26,6 +26,16 @@ public class Server : MonoBehaviour
     public delegate void ReceiveMessage(string message);
     public event ReceiveMessage EvReceiveMessage;
 
+    private volatile int clientsConnected = 0;
+
+    public int ClientsConnected
+    {
+        get
+        {
+            return clientsConnected;
+        }
+    }
+
 	// Use this for initialization
 	void OnEnable () 
     {
@@ -68,6 +78,8 @@ public class Server : MonoBehaviour
             {
                 clients.Add(client);
             }
+            
+            ++clientsConnected;
             clientThread.Start(client);
         }
     }
@@ -120,6 +132,7 @@ public class Server : MonoBehaviour
             clients.Remove(tcpClient);
         }
 
+        --clientsConnected;
         Debug.Log("client disconnected");
     }
 	

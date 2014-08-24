@@ -18,6 +18,7 @@ public class GameCore : UKUnitySingletonManuallyCreated<GameCore> {
     void Start()
     {
         UpdateUI();
+        InvokeRepeating("UpdateUI", 1f, 1f);
     }
 
     private void UpdateUI()
@@ -25,8 +26,8 @@ public class GameCore : UKUnitySingletonManuallyCreated<GameCore> {
         UIGlue.Instance.Player0Score.text = string.Format("{0:0.} points", Player0.Score);
         UIGlue.Instance.Player1Score.text = string.Format("{0:0.} points", Player1.Score);
 
-        UIGlue.Instance.Player0Time.text = "";// string.Format("{0:0.} sec", time);
-        UIGlue.Instance.Player1Time.text = "";// string.Format("{0:0.} sec", time);
+        UIGlue.Instance.Player0Follower.text = string.Format("{0:0.} supporters", Network.Instance.ServerPlayer0.ClientsConnected);
+        UIGlue.Instance.Player1Follower.text = string.Format("{0:0.} supporters", Network.Instance.ServerPlayer1.ClientsConnected);
     }
 
     public static bool Ignores(Unit.UnitType a, Unit.UnitType b)
