@@ -112,7 +112,7 @@ obstacle = love.graphics.newImage("obstacle.png")
 obstacle_rail = love.graphics.newImage("obstacle_rail.png")
 pipe_cover = love.graphics.newImage("pipe_cover.png")
 score = love.graphics.newImage("score.png")
-server_ip = "192.168.2.123"
+server_ip = "192.168.0.1"
 shader_on = true
 
 obstacle_x = love.window.getWidth() * 0.3
@@ -304,22 +304,44 @@ function love.draw()
 		love.graphics.draw(startscreen_controls, 32, 440)
 		love.graphics.draw(startscreen_ip, 288, 440)
 		love.graphics.draw(startscreen_team, 540, 440)
-		love.graphics.draw(startscreen_black, 568, 468)
-		love.graphics.draw(startscreen_white, 568, 512)
+
+		local x, y = love.mouse.getX(), love.mouse.getY()
+		if x >= 568 and x <= 568 + 216 and y >= 488 and y <= 488 + 43 then
+			love.graphics.draw(startscreen_black, 568, 488, 0, 1.1, 1.1, 8, 1)
+			love.graphics.draw(startscreen_white, 568, 527)
+		elseif x >= 568 and x <= 568 + 216 and y >= 527 and y <= 527 + 43 then
+			love.graphics.draw(startscreen_black, 568, 488)
+			love.graphics.draw(startscreen_white, 568, 527, 0, 1.1, 1.1, 8, 1)
+		else
+			love.graphics.draw(startscreen_black, 568, 488)
+			love.graphics.draw(startscreen_white, 568, 527)
+		end
 		love.graphics.setFont(font2)
+		love.graphics.setColor(255, 255, 255)
+		love.graphics.print("Team Black", 598, 498)
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.print("Team White", 598, 537)
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.print("Move", 140, 478)
 		love.graphics.print("Push Candy", 140, 526)
 		love.graphics.print("Enter IP", 315, 470)
+		love.graphics.print("Choose Team", 570, 470)
 		love.graphics.setFont(font3)
 		love.graphics.print(server_ip, 350, 522)
 		if math.floor(love.timer.getTime() * 2) % 2 == 0 then
 			love.graphics.rectangle("fill", string.len(server_ip) * 7 + 352, 508, 2, 16)
 		end
+
 		if shader_on then
-			love.graphics.print("Shader: On (Press S)", 8, 16)
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.print("Shader: On (Press S)", love.window.getWidth() - 143, 17)
+			love.graphics.setColor(255, 255, 255)
+			love.graphics.print("Shader: On (Press S)", love.window.getWidth() - 144, 16)
 		else
-			love.graphics.print("Shader: Off (Press S)", 8, 16)
+			love.graphics.setColor(0, 0, 0)
+			love.graphics.print("Shader: Off (Press S)", love.window.getWidth() - 143, 17)
+			love.graphics.setColor(255, 255, 255)
+			love.graphics.print("Shader: Off (Press S)", love.window.getWidth() - 144, 16)
 		end
 	elseif game_state == 1 then
 		love.graphics.setColor(255, 255, 255)
@@ -494,11 +516,11 @@ end
 
 function love.mousepressed(x, y, key)
 	if game_state == 0 then
-		if x >= 568 and x <= 568 + 216 and y >= 468 and y <= 468 + 43 then
+		if x >= 568 and x <= 568 + 216 and y >= 488 and y <= 488 + 43 then
 			player_selection = 1
 			StartClient(1)
 			game_state = 1
-		elseif x >= 568 and x <= 568 + 216 and y >= 512 and y <= 512 + 43 then
+		elseif x >= 568 and x <= 568 + 216 and y >= 527 and y <= 527 + 43 then
 			player_selection = 0
 			StartClient(0)
 			game_state = 1
